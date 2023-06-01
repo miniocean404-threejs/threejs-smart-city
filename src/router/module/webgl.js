@@ -1,12 +1,22 @@
 export default [
   {
-    path: "/canvas",
-    name: "canvas",
-    component: () => import("@/view/webgl/canvas.vue"),
+    path: '/webgl',
+    children: [
+      {
+        path: 'canvas',
+        name: 'canvas',
+        component: () => import('@/view/webgl/入门/canvas.vue'),
+      },
+      {
+        path: 'gl',
+        name: 'gl',
+        component: () => import('@/view/webgl/入门/webgl.vue'),
+      },
+      {
+        path: 'point',
+        name: 'point',
+        component: () => import('@/view/webgl/绘制一个点/point.vue'),
+      },
+    ],
   },
-  {
-    path: "/webgl",
-    name: "webgl",
-    component: () => import("@/view/webgl/webgl.vue"),
-  },
-];
+]

@@ -1,9 +1,9 @@
 export default [
   {
-    path: "/",
-    name: "home",
+    path: '/',
+    name: 'home',
     components: {
-      default: import('@/view/home/index.vue'),
+      // default: import('@/view/home/index.vue'),
     },
   },
-];
+]
