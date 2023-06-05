@@ -20,9 +20,9 @@ onMounted(() => {
   const VERTEX_SHADER_SOURCE = `
     // main 函数必须存在
     void main(){
-      // 点的坐标 vec4(x,y,z,w) w 是齐次坐标 意义:(x/w,y/w,z/w)
+      // 点的坐标 vec4(x,y,z,w) w 是齐次坐标 意义:(x/w,y/w,z/w) 是三维坐标
       gl_Position = vec4(0.0,0.0,0.0,1.0);
-      // 点的大小是多少
+      // 点的大小是多少, 尺寸以中心轴的点向外扩展
       gl_PointSize = 30.0;
     }
   `
