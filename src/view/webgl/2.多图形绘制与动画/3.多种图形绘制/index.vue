@@ -56,8 +56,11 @@ onMounted(() => {
   // gl.LINE_STRIP 绘制多个线段，但是并不会闭合
   // gl.LINE_LOOP 绘制多个线段，并且闭合
   // gl.TRIANGLES 绘制三角形，内部填充颜色,绘制多个三角形，顶点数量一定是 count 的倍数
-  // gl.TRIANGLE_FAN
+  // gl.TRIANGLE_FAN 条状三角形，T = [n 第一个点 n-1]
+  // gl.TRIANGLE_STRIP 扇形三角形，奇数:T = [n-1 n-2 n] 偶数:T = [n-2 n-1 n]
   gl.drawArrays(gl.TRIANGLES, 0, 6)
+  gl.drawArrays(gl.TRIANGLE_FAN, 0, 6)
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 6)
 })
 
 const initProgram = (gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE) => {

@@ -19,12 +19,13 @@ onMounted(() => {
   // 顶点着色器
   const VERTEX_SHADER_SOURCE = `
     // 声明变量, 声明后有默认值 vec4(0.0,0.0,0.0,1.0);
-    // attribute 存储限定符,只能在顶点着色器中使用 attribute
+    // attribute 存储限定符,只能在顶点着色器中使用 attribute,用来表示“逐顶点”信息,变量的类型智能是float、vec2、vec3、vec4、mat2、mat3和mat4
     // vec4 类型 4 个浮点数组成 的矢量
     // 顶点着色器不用设置精度，有默认的精度设置
     attribute vec4 aPosition;
 
-    // uniform 可用于顶点着色器及片元着色器,但是顶点着色器并不能使用其变量，因为 attribute 是针对于每个顶点都是一样的值，但是 uniform 是针对所有的点都生效的值
+    // uniform 可用于顶点着色器及片元着色器,
+    // uniform 变量包含了“一致”(非 逐顶点/逐片元 的，各顶点或各片元共用)的数据，因为 attribute 是针对于每个顶点都是一样的值，但是 uniform 是针对所有的点都生效的值
     uniform vec4 bPosition;
 
     // main 函数必须存在

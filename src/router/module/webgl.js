@@ -38,7 +38,7 @@ export default [
         ],
       },
       {
-        path: '/draw-and-animation',
+        path: 'draw-and-animation',
         children: [
           {
             path: 'buffer',
@@ -54,6 +54,46 @@ export default [
             path: 'graph',
             name: 'graph',
             component: () => import('@/view/webgl/2.多图形绘制与动画/3.多种图形绘制/index.vue'),
+          },
+          {
+            path: 'translate',
+            name: 'translate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/4.图形平移/index.vue'),
+          },
+          {
+            path: 'scale',
+            name: 'scale',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/5.缩放/index.vue'),
+          },
+          {
+            path: 'rotate',
+            name: 'rotate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/6.旋转/index.vue'),
+          },
+          {
+            path: 'matrix-translate',
+            name: 'matrix-translate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/7.平移矩阵/index.vue'),
+          },
+          {
+            path: 'scale-translate',
+            name: 'scale-translate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/8.缩放矩阵/index.vue'),
+          },
+          {
+            path: 'rotate-translate',
+            name: 'rotate-translate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/9.旋转矩阵/index.vue'),
+          },
+          {
+            path: 'compose-translate',
+            name: 'compose-translate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/10.矩阵组合变换/index.vue'),
+          },
+          {
+            path: 'tool-translate',
+            name: 'tool-translate',
+            component: () => import('@/view/webgl/2.多图形绘制与动画/10.矩阵组合变换/tool.vue'),
           },
         ],
       },
