@@ -97,6 +97,36 @@ export default [
           },
         ],
       },
+      {
+        path: 'grain',
+        children: [
+          {
+            path: 'varying',
+            name: 'varying',
+            component: () => import('@/view/webgl/3.颜色和纹理/1.varying绘制颜色/index.vue'),
+          },
+          {
+            path: 'texture',
+            name: 'texture',
+            component: () => import('@/view/webgl/3.颜色和纹理/2.添加背景图-使用纹理/index.vue'),
+          },
+          {
+            path: 'lot-texture',
+            name: 'lot-texture',
+            component: () => import('@/view/webgl/3.颜色和纹理/3.使用多重纹理/index.vue'),
+          },
+        ],
+      },
+      {
+        path: 'opengl',
+        children: [
+          {
+            path: 'base',
+            name: 'base',
+            // component: () => import('@/view/webgl/4.OpenGLES语言/1.基础/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]

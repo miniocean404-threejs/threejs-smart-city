@@ -1,7 +1,9 @@
-# Vue 3 + Vite
+# WEBGL
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## WEBGL 渲染流程
+确定顶点坐标 -> 图元装配 -> 光栅化 -> 图形绘制
+1. 图元装配：独立的顶点坐标装配成几何图形，图形类别通过 drawArrays 参数 1 决定
+2. 光栅化： 将装配好的图形转化为片元
+   * 对于不透明物体，背面对于观察者来说是不可见的。那么在渲染过程中，就会将不可见的部分剔除，不参与绘制。节省渲染开销。
+   * 在可视范围之外的事物是看不到的。图形生成后，有的部分可能位于可视范围之外，这一部分会被剪裁掉，不参与绘制
+3. 图形绘制：通过片元着色器，一个片元一个片元绘制到浏览器(一个点一个点的)
