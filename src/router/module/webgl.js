@@ -123,7 +123,7 @@ export default [
           {
             path: 'base',
             name: 'base',
-            component: () => import('@/view/webgl/5.3D世界/1.3D基础/1.3D基础.vue'),
+            component: () => import('@/view/webgl/5.3D世界/1.3D基础/index.vue'),
           },
         ],
       },
