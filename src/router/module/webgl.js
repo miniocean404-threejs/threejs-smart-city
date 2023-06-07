@@ -125,6 +125,11 @@ export default [
             name: 'base',
             component: () => import('@/view/webgl/5.3D世界/1.3D基础/index.vue'),
           },
+          {
+            path: 'orthographic',
+            name: 'orthographic',
+            component: () => import('@/view/webgl/5.3D世界/2.正射投影/index.vue'),
+          },
         ],
       },
     ],

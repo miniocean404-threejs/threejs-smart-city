@@ -4,7 +4,7 @@
 
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { getTranslateMatrix } from '@/utils/matrix.js'
+import { getOrthographic, getTranslateMatrix, mixMatrix } from '@/utils/matrix.js'
 import { getViewMatrix } from '@/utils/helper.js'
 const canvasRef = ref(null)
 
@@ -34,9 +34,9 @@ onMounted(() => {
 
   /* prettier-ignore */
   const points = new Float32Array([
-    -0.5, -0.5,
-     0.5, -0.5,
-     0.0,  0.5
+    -1,  -1,
+     1,  -1,
+     0,   1
   ])
 
   const buffer = gl.createBuffer()
@@ -50,9 +50,11 @@ onMounted(() => {
     eye += 0.01
     if (eye > 1) eye = 0
 
-    const matrix = getViewMatrix(0, eye, 0.6, 0, 0, 0, 0, 0.2, 0)
+    const matrix = getViewMatrix(0, eye, 0.2, 0, 0, 0, 0, 0.6, 0)
+    const orthographicMatrix = getOrthographic(-1, 1, 1, -1, 0, 20)
 
-    gl.uniformMatrix4fv(mat, false, matrix)
+    gl.uniformMatrix4fv(mat, false, orthographicMatrix)
+
     gl.drawArrays(gl.TRIANGLES, 0, 3)
     requestAnimationFrame(animation)
   }

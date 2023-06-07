@@ -1,4 +1,4 @@
-// 平移矩阵
+// 平移矩阵，矩阵与数学中的矩阵 对角线 相反
 export const getTranslateMatrix = (x = 0, y = 0, z = 0) => {
   /* prettier-ignore */
   return new Float32Array([
@@ -47,4 +47,21 @@ export const mixMatrix = (A, B) => {
   }
 
   return arr
+}
+
+// 正射投影矩阵：将一个指定尺寸的盒子, 映射压缩成 [-1, 1] 范围的盒子，使其中的像素点全部可以绘制出来，之外的像素点则被抛弃
+// 下方并且已经经过移动矩阵转化了
+// left, right, top, bottom, near, far 为源物体大小
+export const getOrthographic = (left, right, top, bottom, near, far) => {
+  const width = right - left
+  const height = top - bottom
+  const depth = far - near
+
+  /* prettier-ignore */
+  return new Float32Array([
+    2 / width,           0,                    0,                 0,
+    0,                   2/height,             0,                 0,
+    0,                   0,                    -2/depth,          0,
+    -(right+left)/width, -(top+bottom)/height, -(far+near)/depth, 1
+  ])
 }
