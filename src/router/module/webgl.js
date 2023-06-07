@@ -130,6 +130,11 @@ export default [
             name: 'orthographic',
             component: () => import('@/view/webgl/5.3D世界/2.正射投影/index.vue'),
           },
+          {
+            path: 'perspective',
+            name: 'perspective',
+            component: () => import('@/view/webgl/5.3D世界/3.透视投影/index.vue'),
+          },
         ],
       },
     ],
