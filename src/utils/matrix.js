@@ -65,3 +65,15 @@ export const getOrthographic = (left, right, top, bottom, near, far) => {
     -(right+left)/width, -(top+bottom)/height, -(far+near)/depth, 1
   ])
 }
+
+// 获取透视投影矩阵,已经经过了正射投影后的矩阵
+export function getPerspective(fov, aspect, far, near) {
+  fov = (fov * Math.PI) / 180
+  /* prettier-ignore */
+  return new Float32Array([
+    1/(aspect*Math.tan(fov / 2)),     0,                          0,                        0,
+    0,                                   1/(Math.tan(fov/2)),     0,                        0,
+    0,                                   0,                          -(far+near)/(far-near),   -(2*far*near)/(far-near),
+    0,                                   0,                          -1,                       0,
+  ])
+}
