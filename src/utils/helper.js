@@ -60,8 +60,9 @@ function minus(a, b) {
 }
 
 // 平面转换：物体在原平面的点转化为 将物理进行 3D 位置旋转移动等操作后的位置 的新的坐标系的转换的函数
+// 视图矩阵：对于相机进行逆变换
 // 设置相机位置的基向量
-export function getCameraMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx, upy, upz) {
+export function getViewMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx, upy, upz) {
   // 视点
   const eye = new Float32Array([eyeX, eyeY, eyeZ])
   // 目标点
@@ -75,7 +76,6 @@ export function getCameraMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx
   const z = normalize(minus(eye, lookAt))
   const x = normalize(cross(z, up))
   const y = cross(x, z)
-  // console.log(z, x, y)
 
   /* prettier-ignore */
   return new Float32Array([

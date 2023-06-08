@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getPerspective, mixMatrix } from '@/utils/matrix.js'
-import { getCameraMatrix } from '@/utils/helper.js'
+import { getViewMatrix } from '@/utils/helper.js'
 import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 
@@ -86,7 +86,7 @@ onMounted(() => {
   let eyeZ = 0.1
 
   const draw = () => {
-    const matrix = getCameraMatrix(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0)
+    const matrix = getViewMatrix(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0)
     const perspective = getPerspective(100, canvas.width / canvas.height, 100, 2)
     gl.enable(gl.DEPTH_TEST)
 
