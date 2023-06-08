@@ -5,7 +5,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { getTranslateMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/helper.js'
+import { getCameraMatrix } from '@/utils/helper.js'
 import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 
@@ -51,7 +51,7 @@ onMounted(() => {
     eyeY += 0.01
     if (eyeY > 1) eyeY = 0
 
-    const matrix = getViewMatrix(0, eyeY, 1.0, 0, 0, 0, 0, 1.0, 0)
+    const matrix = getCameraMatrix(0, eyeY, 1.0, 0, 0, 0, 0, 1, 0)
 
     gl.uniformMatrix4fv(mat, false, matrix)
     gl.drawArrays(gl.TRIANGLES, 0, 3)

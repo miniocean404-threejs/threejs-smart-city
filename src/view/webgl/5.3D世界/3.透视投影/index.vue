@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getPerspective, mixMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/helper.js'
+import { getCameraMatrix } from '@/utils/helper.js'
 import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 
@@ -83,10 +83,10 @@ onMounted(() => {
 
   let eyeX = 0
   let eyeY = 0
-  let eyeZ = -0.1
+  let eyeZ = 0.1
 
   const draw = () => {
-    const matrix = getViewMatrix(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0)
+    const matrix = getCameraMatrix(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0)
     const perspective = getPerspective(100, canvas.width / canvas.height, 100, 2)
     gl.enable(gl.DEPTH_TEST)
 
@@ -98,18 +98,19 @@ onMounted(() => {
   draw()
 
   document.onkeydown = function (e) {
+    let range = 0.01
     switch (e.code) {
       case 'ArrowRight':
-        eyeX += 0.01
+        eyeX += range
         break
       case 'ArrowLeft':
-        eyeX -= 0.01
+        eyeX -= range
         break
       case 'ArrowUp':
-        eyeY += 0.01
+        eyeY += range
         break
       case 'ArrowDown':
-        eyeZ -= 0.01
+        eyeZ -= range
         break
     }
     draw()
