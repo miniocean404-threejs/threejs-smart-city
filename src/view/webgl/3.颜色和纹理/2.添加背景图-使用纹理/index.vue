@@ -6,6 +6,7 @@
 import { onMounted, ref } from 'vue'
 const canvasRef = ref(null)
 import spongebob from '@/assets/spongebob.png'
+import { initWebGL } from '@/utils/program.js'
 
 const VERTEX_SHADER_SOURCE = `
     attribute vec4 aPosition;
@@ -35,7 +36,7 @@ onMounted(() => {
   const canvas = canvasRef.value
   const gl = canvas.getContext('webgl')
 
-  const program = initProgram(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE)
+  const program = initWebGL(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE)
   const aPosition = gl.getAttribLocation(program, 'aPosition')
   const aTex = gl.getAttribLocation(program, 'aTex')
   const uSampler = gl.getUniformLocation(program, 'uSampler')
@@ -121,31 +122,6 @@ onMounted(() => {
 
   img.src = spongebob
 })
-
-const initProgram = (gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE) => {
-  // 2. 创建着色器
-  const vertexShader = gl.createShader(gl.VERTEX_SHADER)
-  const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
-
-  // 指定着色器源码
-  gl.shaderSource(vertexShader, VERTEX_SHADER_SOURCE)
-  gl.shaderSource(fragmentShader, FRAGMENT_SHADER_SOURCE)
-
-  // 编译着色器
-  gl.compileShader(vertexShader)
-  gl.compileShader(fragmentShader)
-
-  // 3. 创建一个程序对象，关联 js 与 着色器，后续操作通过 program 交互
-  const program = gl.createProgram()
-
-  gl.attachShader(program, vertexShader)
-  gl.attachShader(program, fragmentShader)
-
-  gl.linkProgram(program)
-  gl.useProgram(program)
-
-  return program
-}
 </script>
 
 <style lang="scss" scoped>

@@ -1,11 +1,12 @@
 <template>
-  <canvas id="canvas" width="400" height="400" ref="canvasRef"> 此浏览器不支持 canvas </canvas>
+  <canvas id="canvas" ref="canvasRef"> 此浏览器不支持 canvas </canvas>
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { getOrthographic, getPerspective, getTranslateMatrix, mixMatrix } from '@/utils/matrix.js'
+import { onMounted, ref } from 'vue'
+import { getPerspective, mixMatrix } from '@/utils/matrix.js'
 import { getViewMatrix } from '@/utils/helper.js'
+import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 
 const VERTEX_SHADER_SOURCE = `
@@ -31,9 +32,12 @@ const FRAGMENT_SHADER_SOURCE = `
 
 onMounted(() => {
   const canvas = canvasRef.value
-  const gl = canvas.getContext('webgl')
+  canvas.width = document.body.offsetWidth
+  canvas.height = document.body.offsetHeight
 
-  const program = initProgram(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE)
+  const gl = canvas.getContext('webgl')
+  const program = initWebGL(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE)
+
   const aPosition = gl.getAttribLocation(program, 'aPosition')
   const mat = gl.getUniformLocation(program, 'mat')
   const aColor = gl.getAttribLocation(program, 'aColor')
@@ -77,13 +81,13 @@ onMounted(() => {
   gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, BYTES * 6, BYTES * 3)
   gl.enableVertexAttribArray(aColor)
 
-  let eyex = 0
-  let eyey = 0
-  let eyez = 0.1
+  let eyeX = 0
+  let eyeY = 0
+  let eyeZ = 0.1
 
   const draw = () => {
-    const matrix = getViewMatrix(eyex, eyey, eyez, 0.0, 0.0, 0.0, 0.0, 0.6, 0.0)
-    const perspective = getPerspective(150, canvas.width / canvas.height, 100, 1)
+    const matrix = getViewMatrix(eyeX, eyeY, eyeZ, 0.0, 0.0, 0.0, 0.0, 1, 0.0)
+    const perspective = getPerspective(100, canvas.width / canvas.height, 100, 2)
     gl.enable(gl.DEPTH_TEST)
 
     gl.uniformMatrix4fv(mat, false, mixMatrix(matrix, perspective))
@@ -96,51 +100,25 @@ onMounted(() => {
   document.onkeydown = function (e) {
     switch (e.code) {
       case 'ArrowRight':
-        eyex += 0.01
+        eyeX += 0.1
         break
       case 'ArrowLeft':
-        eyex -= 0.01
+        eyeX -= 0.1
         break
       case 'ArrowUp':
-        eyey += 0.01
+        eyeY += 0.1
         break
       case 'ArrowDown':
-        eyey -= 0.01
+        eyeZ -= 0.1
         break
     }
     draw()
   }
 })
-
-const initProgram = (gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE) => {
-  // 2. 创建着色器
-  const vertexShader = gl.createShader(gl.VERTEX_SHADER)
-  const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)
-
-  // 指定着色器源码
-  gl.shaderSource(vertexShader, VERTEX_SHADER_SOURCE)
-  gl.shaderSource(fragmentShader, FRAGMENT_SHADER_SOURCE)
-
-  // 编译着色器
-  gl.compileShader(vertexShader)
-  gl.compileShader(fragmentShader)
-
-  // 3. 创建一个程序对象，关联 js 与 着色器，后续操作通过 program 交互
-  const program = gl.createProgram()
-
-  gl.attachShader(program, vertexShader)
-  gl.attachShader(program, fragmentShader)
-
-  gl.linkProgram(program)
-  gl.useProgram(program)
-
-  return program
-}
 </script>
 
 <style lang="scss" scoped>
 #canvas {
-  margin: 50px auto 0;
   background-color: yellow;
 }
 </style>
