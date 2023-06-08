@@ -46,16 +46,16 @@ onMounted(() => {
   gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0)
   gl.enableVertexAttribArray(aPosition)
 
-  let eye = 0.2
+  let eyeY = 0
   const animation = () => {
-    eye += 0.01
-    if (eye > 1) eye = 0
+    eyeY += 0.01
+    if (eyeY > 1) eyeY = 0
 
-    const matrix = getViewMatrix(0, eye, 0.6, 0, 0, 0, 0, 0.2, 0)
+    const matrix = getViewMatrix(0, eyeY, 1.0, 0, 0, 0, 0, 1.0, 0)
 
     gl.uniformMatrix4fv(mat, false, matrix)
     gl.drawArrays(gl.TRIANGLES, 0, 3)
-    requestAnimationFrame(animation)
+    // requestAnimationFrame(animation)
   }
 
   animation()

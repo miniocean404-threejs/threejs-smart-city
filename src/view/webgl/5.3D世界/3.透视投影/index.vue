@@ -46,7 +46,7 @@ onMounted(() => {
   const points = new Float32Array([
     0.75,  1.0, -0.6,     1.0,0.0,0.0,
     0.25, -1.0, -0.6,     1.0,0.0,0.0,
-    1.0, - 1.0, -0.6,     1.0,0.0,0.0,
+    1.0,  -1.0, -0.6,     1.0,0.0,0.0,
 
     0.75,  1.0, -0.5,     0.0,1.0,0.0,
     0.25, -1.0, -0.5,     0.0,1.0,0.0,
@@ -83,10 +83,10 @@ onMounted(() => {
 
   let eyeX = 0
   let eyeY = 0
-  let eyeZ = 0.1
+  let eyeZ = -0.1
 
   const draw = () => {
-    const matrix = getViewMatrix(eyeX, eyeY, eyeZ, 0.0, 0.0, 0.0, 0.0, 1, 0.0)
+    const matrix = getViewMatrix(eyeX, eyeY, eyeZ, 0, 0, 0, 0, 1, 0)
     const perspective = getPerspective(100, canvas.width / canvas.height, 100, 2)
     gl.enable(gl.DEPTH_TEST)
 
@@ -100,16 +100,16 @@ onMounted(() => {
   document.onkeydown = function (e) {
     switch (e.code) {
       case 'ArrowRight':
-        eyeX += 0.1
+        eyeX += 0.01
         break
       case 'ArrowLeft':
-        eyeX -= 0.1
+        eyeX -= 0.01
         break
       case 'ArrowUp':
-        eyeY += 0.1
+        eyeY += 0.01
         break
       case 'ArrowDown':
-        eyeZ -= 0.1
+        eyeZ -= 0.01
         break
     }
     draw()

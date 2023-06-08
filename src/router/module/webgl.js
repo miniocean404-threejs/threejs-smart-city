@@ -121,9 +121,9 @@ export default [
         path: '3d',
         children: [
           {
-            path: 'base',
-            name: 'base',
-            component: () => import('@/view/webgl/5.3D世界/1.3D基础/index.vue'),
+            path: 'camera',
+            name: 'camera',
+            component: () => import('@/view/webgl/5.3D世界/1.3D基础/相机.vue'),
           },
           {
             path: 'orthographic',

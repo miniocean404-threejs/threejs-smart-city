@@ -60,7 +60,7 @@ function minus(a, b) {
 }
 
 // 平面转换：物体在原平面的点转化为 将物理进行 3D 位置旋转移动等操作后的位置 的新的坐标系的转换的函数
-//
+// 设置相机位置，
 export function getViewMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx, upy, upz) {
   // 视点
   const eye = new Float32Array([eyeX, eyeY, eyeZ])
@@ -71,7 +71,7 @@ export function getViewMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx, 
 
   normalize(up)
 
-  // 确定 x y z 轴 组成的平面位置
+  // 确定 x y z 轴 组成的平面位置,z 轴为视线的方向
   const z = normalize(minus(eye, lookAt))
   const x = normalize(cross(z, up))
   const y = cross(x, z)
