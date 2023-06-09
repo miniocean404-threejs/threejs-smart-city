@@ -157,6 +157,26 @@ export default [
           },
         ],
       },
+      {
+        path: 'light',
+        children: [
+          {
+            path: 'use',
+            name: 'use',
+            component: () => import('@/view/webgl/6.光照/2.添加光源/顶点法添加光源.vue'),
+          },
+          {
+            path: 'use-index',
+            name: 'use-index',
+            component: () => import('@/view/webgl/6.光照/2.添加光源/索引法添加光源.vue'),
+          },
+          {
+            path: 'use-index-fa',
+            name: 'use-index-fa',
+            component: () => import('@/view/webgl/6.光照/2.添加光源/差积计算法向量.vue'),
+          },
+        ],
+      },
     ],
   },
 ]

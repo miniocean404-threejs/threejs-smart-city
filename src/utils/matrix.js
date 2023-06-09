@@ -69,8 +69,6 @@ export function getViewMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx, 
   const x = normalize(cross(z, up))
   const y = cross(x, z)
 
-  console.log(x, y, z)
-
   /* prettier-ignore */
   return new Float32Array([
     x[0],        y[0],        z[0],        0,
