@@ -1,3 +1,19 @@
+// 转置矩阵，行列主序交换
+export function transpose(matrix) {
+  const n = matrix.length
+  const m = matrix[0].length
+  const result = []
+
+  for (let j = 0; j < m; j++) {
+    result[j] = []
+    for (let i = 0; i < n; i++) {
+      result[j][i] = matrix[i][j]
+    }
+  }
+
+  return result
+}
+
 // 将数组的范围一个范围之间
 export function normalize1(arr) {
   let num = 0
