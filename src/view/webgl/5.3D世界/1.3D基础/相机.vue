@@ -5,7 +5,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { getTranslateMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/helper.js'
+import { getViewMatrix } from '@/utils/matrix.js'
 import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 

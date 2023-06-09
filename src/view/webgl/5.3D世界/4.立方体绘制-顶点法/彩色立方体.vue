@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getPerspective, getRotateMatrix, mixMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/helper.js'
+import { getViewMatrix } from '@/utils/matrix.js'
 import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 
@@ -70,9 +70,6 @@ onMounted(() => {
   gl.vertexAttribPointer(aPosition, 3, gl.FLOAT, false, 0, 0)
   gl.enableVertexAttribArray(aPosition)
 
-  // gl.vertexAttribPointer(aColor, 3, gl.FLOAT, false, BYTES * 6, BYTES * 3)
-  // gl.enableVertexAttribArray(aColor)
-
   let eyeX = 3
   let eyeY = 3
   let eyeZ = 5
@@ -86,8 +83,10 @@ onMounted(() => {
     const perspective = getPerspective(30, canvas.width / canvas.height, 100, 2)
     gl.enable(gl.DEPTH_TEST)
 
+    // gl.uniformMatrix4fv(mat, false, perspective)
+    // gl.uniformMatrix4fv(mat, false, matrix)
     gl.uniformMatrix4fv(mat, false, mixMatrix(perspective, matrix))
-    // gl.uniformMatrix4fv(mat, false, mixMatrix(mixMatrix(perpective, matrix), rotate))
+    // gl.uniformMatrix4fv(mat, false, mixMatrix(mixMatrix(perspective, matrix), rotate))
 
     gl.drawArrays(gl.TRIANGLES, 0, points.length / 3)
 
@@ -100,6 +99,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 #canvas {
-  background-color: yellow;
+  background-color: color(srgb 1 1 1);
 }
 </style>

@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getPerspective, mixMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/helper.js'
+import { getViewMatrix } from '@/utils/matrix.js'
 import { initWebGL } from '@/utils/program.js'
 const canvasRef = ref(null)
 

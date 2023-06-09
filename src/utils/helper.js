@@ -32,7 +32,7 @@ export function normalize1(arr) {
 }
 
 // 真正在 [-1,1] 之间的归一化函数
-function normalize(target, min = -1, max = 1) {
+export function normalize(target, min = -1, max = 1) {
   let arrMax = Math.max(...target)
   let arrMin = Math.min(...target)
   arrMax = arrMax > Math.abs(arrMin) ? arrMax : Math.abs(arrMin)
@@ -66,38 +66,11 @@ export function dot(a, b) {
 }
 
 // 向量差
-function minus(a, b) {
+export function minus(a, b) {
   /* prettier-ignore */
   return new Float32Array([
     a[0] - b[0],
     a[1] - b[1],
     a[2] - b[2],
-  ])
-}
-
-// 平面转换：物体在原平面的点转化为 将物理进行 3D 位置旋转移动等操作后的位置 的新的坐标系的转换的函数
-// 视图矩阵：对于相机进行逆变换
-// 设置相机位置的基向量
-export function getViewMatrix(eyeX, eyeY, eyeZ, lookAtx, lookAty, lookAtz, upx, upy, upz) {
-  // 视点
-  const eye = new Float32Array([eyeX, eyeY, eyeZ])
-  // 目标点
-  const lookAt = new Float32Array([lookAtx, lookAty, lookAtz])
-  // 上方向
-  const up = new Float32Array([upx, upy, upz])
-
-  normalize(up)
-
-  // 确定 x y z 轴 组成的平面位置,z 轴为视线的方向
-  const z = normalize(minus(eye, lookAt))
-  const x = normalize(cross(z, up))
-  const y = cross(x, z)
-
-  /* prettier-ignore */
-  return new Float32Array([
-    x[0],        y[0],        z[0],        0,
-    x[1],        y[1],        z[1],        0,
-    x[2],        y[2],        z[2],        0,
-    -dot(x,eye), -dot(y,eye), -dot(z,eye), 1
   ])
 }
