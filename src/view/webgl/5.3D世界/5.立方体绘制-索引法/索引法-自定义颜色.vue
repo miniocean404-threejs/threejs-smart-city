@@ -119,9 +119,9 @@ onMounted(() => {
   gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer)
   gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, index, gl.STATIC_DRAW)
 
-  let eyeX = 3
-  let eyeY = 3
-  let eyeZ = 5
+  let eyeX = 1
+  let eyeY = 1
+  let eyeZ = 3
 
   let deg = 0
   const draw = () => {
@@ -132,7 +132,6 @@ onMounted(() => {
     const perspective = getPerspective(30, canvas.width / canvas.height, 100, 2)
     gl.enable(gl.DEPTH_TEST)
 
-    // gl.uniformMatrix4fv(mat, false, mixMatrix(perspective, matrix))
     gl.uniformMatrix4fv(mat, false, mixMatrix(mixMatrix(perspective, matrix), rotate))
 
     // 使用索引数据需要使用 drawElements 进行绘制
