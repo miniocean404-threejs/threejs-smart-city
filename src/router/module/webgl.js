@@ -135,6 +135,26 @@ export default [
             name: 'perspective',
             component: () => import('@/view/webgl/5.3D世界/3.透视投影/index.vue'),
           },
+          {
+            path: 'cube-vertex',
+            name: 'cube-vertex',
+            component: () => import('@/view/webgl/5.3D世界/4.立方体绘制-顶点法/彩色立方体.vue'),
+          },
+          {
+            path: 'cube-vertex-custom',
+            name: 'cube-vertex-custom',
+            component: () => import('@/view/webgl/5.3D世界/4.立方体绘制-顶点法/自定义立方体颜色.vue'),
+          },
+          {
+            path: 'cube-index',
+            name: 'cube-index',
+            component: () => import('@/view/webgl/5.3D世界/5.立方体绘制-索引法/索引法.vue'),
+          },
+          {
+            path: 'cube-index-custom',
+            name: 'cube-index-custom',
+            component: () => import('@/view/webgl/5.3D世界/5.立方体绘制-索引法/索引法-自定义颜色.vue'),
+          },
         ],
       },
     ],
