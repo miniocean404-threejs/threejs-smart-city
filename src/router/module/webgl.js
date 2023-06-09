@@ -177,6 +177,26 @@ export default [
           },
         ],
       },
+      {
+        path: 'advance',
+        children: [
+          {
+            path: 'fog',
+            name: 'fog',
+            component: () => import('@/view/webgl/7.进阶/1.雾化/index.vue'),
+          },
+          {
+            path: 'point',
+            name: 'point',
+            component: () => import('@/view/webgl/7.进阶/2.绘制圆形的点/index.vue'),
+          },
+          {
+            path: 'rgb',
+            name: 'rgb',
+            component: () => import('@/view/webgl/7.进阶/3.绘制半透明物体/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
