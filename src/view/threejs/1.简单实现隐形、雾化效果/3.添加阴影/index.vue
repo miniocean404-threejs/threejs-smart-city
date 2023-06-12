@@ -46,7 +46,6 @@ onMounted(() => {
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
   plane.rotateZ(0)
   plane.position.z = -10
-  plane.position.x = 3
 
   // 接收阴影
   plane.receiveShadow = true

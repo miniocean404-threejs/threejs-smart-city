@@ -55,6 +55,26 @@ export default [
             name: 'spot',
             component: () => import('@/view/threejs/3.光/1.聚光灯光源/index.vue'),
           },
+          {
+            path: 'env',
+            name: 'env',
+            component: () => import('@/view/threejs/3.光/2.环境光/index.vue'),
+          },
+          {
+            path: 'point',
+            name: 'point',
+            component: () => import('@/view/threejs/3.光/3.点光源/index.vue'),
+          },
+          {
+            path: 'parallel',
+            name: 'parallel',
+            component: () => import('@/view/threejs/3.光/4.平行光/index.vue'),
+          },
+          {
+            path: 'ball',
+            name: 'ball',
+            component: () => import('@/view/threejs/3.光/5.半球光/index.vue'),
+          },
         ],
       },
     ],

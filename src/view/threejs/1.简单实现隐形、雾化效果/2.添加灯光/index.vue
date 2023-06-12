@@ -43,9 +43,9 @@ onMounted(() => {
   sphere.position.y = 1
 
   // 添加灯光
-  // const spotLight = new THREE.SpotLight(0xffffff)
-  // spotLight.position.set(-10, 10, 10)
-  // scene.add(spotLight)
+  const spotLight = new THREE.SpotLight(0xffffff)
+  spotLight.position.set(-10, 10, 10)
+  scene.add(spotLight)
 
   scene.add(cube)
   scene.add(sphere)

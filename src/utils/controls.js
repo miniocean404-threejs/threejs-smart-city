@@ -6,6 +6,12 @@ const changePropGroup = {
     getValue: (item) => item.color.getStyle(),
     setValue: (item, value) => item.color.setStyle(value),
   },
+  groundColor: {
+    method: 'addColor',
+    extends: [0, Math.PI / 2],
+    getValue: (item) => item.groundColor.getStyle(),
+    setValue: (item, value) => item.groundColor.setStyle(value),
+  },
   intensity: {
     extends: [0, 10],
     getValue: (item) => item.intensity,
@@ -34,7 +40,11 @@ const changePropGroup = {
 }
 
 const lightType = {
-  SpotLight: ['color', 'intensity', 'distance', 'angle', 'penumbra', 'decay'],
+  SpotLight: ['color', 'intensity', 'distance', 'angle', 'penumbra', 'decay'], // 聚光灯
+  AmbientLight: ['color', 'intensity'], // 环境光
+  PointLight: ['color', 'intensity', 'distance', 'decay'], // 点光源
+  DirectionalLight: ['color', 'intensity'], // 平行光
+  HemisphereLight: ['color', 'groundColor'], // 半球光，它没有 skyColor 方法
 }
 
 export const initControls = (light) => {
@@ -49,7 +59,7 @@ export const initControls = (light) => {
     decay: 2, // 衰变
   }
 
-  if (!types.length) return
+  if (!types?.length) return
   types.map((needPropName) => {
     const changeProp = changePropGroup[needPropName]
     if (changeProp) {
