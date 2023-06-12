@@ -31,21 +31,22 @@ onMounted(() => {
   })
   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
-  const sphereGeometry = new THREE.SphereGeometry(2, 10, 10)
+  const sphereGeometry = new THREE.SphereGeometry(1, 10, 10)
   const sphere = new THREE.Mesh(sphereGeometry, cubeMaterial)
   sphere.position.x = 3
   sphere.position.y = 3
+  sphere.position.z = -20
 
   // castShadow 让物体产生阴影，球体、立方体，使用平面接收阴影
   cube.castShadow = true
   sphere.castShadow = true
 
   // 创建一个平面，接收阴影
-  const planeGeometry = new THREE.PlaneGeometry(20, 30)
+  const planeGeometry = new THREE.PlaneGeometry(window.innerWidth, window.innerHeight)
   const planeMaterial = new THREE.MeshLambertMaterial({ color: 0x999999 })
   const plane = new THREE.Mesh(planeGeometry, planeMaterial)
   plane.rotateZ(0)
-  plane.position.z = -10
+  plane.position.z = -40
   plane.position.x = 3
 
   // 接收阴影
@@ -64,6 +65,8 @@ onMounted(() => {
   scene.add(sphere)
   scene.add(plane)
   scene.add(spotLight)
+  // 实现雾化效果
+  scene.fog = new THREE.Fog(0xffffff, 0.1, 50)
 
   const animation = () => {
     cube.rotation.x += 0.01
