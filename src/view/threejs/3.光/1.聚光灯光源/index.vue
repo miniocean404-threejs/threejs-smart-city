@@ -74,8 +74,11 @@ onMounted(() => {
   spotLight.position.set(-10, 10, 20)
   // 灯光开启阴影效果
   spotLight.castShadow = true
+  // 修改光源阴影模糊值，聚光灯也适用
+  spotLight.shadow.mapSize.width = 4096
+  spotLight.shadow.mapSize.height = 4096
 
-  // initControls(spotLight)
+  initControls(spotLight)
 
   // 开启渲染器支持阴影
   renderer.shadowMap.enabled = true
@@ -92,10 +95,6 @@ onMounted(() => {
     sphere.rotation.y += 0.01
 
     renderer.render(scene, camera)
-
-    // 修改光源阴影模糊值，聚光灯也适用，必须在渲染时候，否则获取不到
-    // spotLight.shadow.map.width = 4096
-    // spotLight.shadow.map.height = 4096
 
     requestAnimationFrame(animation)
   }

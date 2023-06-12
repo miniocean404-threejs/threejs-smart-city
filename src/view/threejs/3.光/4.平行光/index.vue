@@ -85,6 +85,9 @@ onMounted(() => {
   directionalLight.shadow.camera.bottom = -50
   directionalLight.shadow.camera.near = 2
   directionalLight.shadow.camera.far = 200
+  // 修改光源阴影模糊值，聚光灯也适用
+  directionalLight.shadow.mapSize.width = 4096
+  directionalLight.shadow.mapSize.height = 4096
 
   initControls(directionalLight)
 
@@ -104,10 +107,6 @@ onMounted(() => {
     sphere.rotation.y += 0.01
 
     renderer.render(scene, camera)
-
-    // 修改光源阴影模糊值，聚光灯也适用，必须在渲染时候，否则获取不到
-    directionalLight.shadow.map.width = 4096
-    directionalLight.shadow.map.height = 4096
 
     requestAnimationFrame(animation)
   }
