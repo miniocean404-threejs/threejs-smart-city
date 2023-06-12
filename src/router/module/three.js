@@ -27,6 +27,26 @@ export default [
           },
         ],
       },
+      {
+        path: 'base',
+        children: [
+          {
+            path: 'scene',
+            name: 'scene',
+            component: () => import('@/view/threejs/2.基础组件/1.scene/index.vue'),
+          },
+          {
+            path: 'geometry',
+            name: 'geometry',
+            component: () => import('@/view/threejs/2.基础组件/2.geometry/index.vue'),
+          },
+          {
+            path: 'camera',
+            name: 'camera',
+            component: () => import('@/view/threejs/2.基础组件/3.camera/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
