@@ -47,6 +47,16 @@ export default [
           },
         ],
       },
+      {
+        path: 'light',
+        children: [
+          {
+            path: 'spot',
+            name: 'spot',
+            component: () => import('@/view/threejs/3.光/1.聚光灯光源/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]

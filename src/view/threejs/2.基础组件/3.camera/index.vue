@@ -12,8 +12,8 @@ onMounted(() => {
 
   const scene = new THREE.Scene()
 
-  // const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
-  const camera = new THREE.OrthographicCamera(-10, 10, 10, -10, 1, 1000)
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
+  // const camera = new THREE.OrthographicCamera(-10, 10, 10, -10, 1, 1000)
   camera.position.set(0, 0, 20)
   // 透视投影及正射投影都可以单独设置相机中的参数
   camera.far = 1000
