@@ -35,6 +35,11 @@ export default [
             name: 'color',
             component: () => import('@/view/webgl/1.简单使用/5.修改颜色的uniform/color.vue'),
           },
+          {
+            path: 'import',
+            name: 'import',
+            component: () => import('@/view/webgl/1.简单使用/6.引入glsl/index.vue'),
+          },
         ],
       },
       {

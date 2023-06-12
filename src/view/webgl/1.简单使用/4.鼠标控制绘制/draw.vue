@@ -97,8 +97,6 @@ onMounted(() => {
     })
   })
 })
-
-onBeforeUnmount(() => {})
 </script>
 
 <style lang="scss" scoped>
