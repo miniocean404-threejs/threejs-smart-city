@@ -39,6 +39,7 @@ onMounted(() => {
   })
   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
+  // 创建球体
   const sphereGeometry = new THREE.SphereGeometry(1, 10, 10)
   const sphereMaterial = new THREE.MeshBasicMaterial({
     color: 0xffff00,
