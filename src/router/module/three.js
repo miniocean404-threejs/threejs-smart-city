@@ -77,6 +77,56 @@ export default [
           },
         ],
       },
+      {
+        path: 'material',
+        children: [
+          {
+            path: 'MeshBasicMaterial',
+            name: 'MeshBasicMaterial',
+            component: () => import('@/view/threejs/4.材质/1.MeshBasicMaterial/index.vue'),
+          },
+          {
+            path: 'MeshDepthMaterial',
+            name: 'MeshDepthMaterial',
+            component: () => import('@/view/threejs/4.材质/2.MeshDepthMaterial/index.vue'),
+          },
+          {
+            path: 'MeshNormalMaterial',
+            name: 'MeshNormalMaterial',
+            component: () => import('@/view/threejs/4.材质/3.MeshNormalMaterial/index.vue'),
+          },
+          {
+            path: 'MeshFaceMaterial',
+            name: 'MeshFaceMaterial',
+            component: () => import('@/view/threejs/4.材质/4.MeshFaceMaterial/index.vue'),
+          },
+          {
+            path: 'MeshLambertMaterial',
+            name: 'MeshLambertMaterial',
+            component: () => import('@/view/threejs/4.材质/5.MeshLambertMaterial/index.vue'),
+          },
+          {
+            path: 'MeshPhongMaterial',
+            name: 'MeshPhongMaterial',
+            component: () => import('@/view/threejs/4.材质/6.MeshPhongMaterial/index.vue'),
+          },
+          {
+            path: 'ShaderMaterial',
+            name: 'ShaderMaterial',
+            component: () => import('@/view/threejs/4.材质/7.ShaderMaterial/index.vue'),
+          },
+          {
+            path: 'LineBasicMaterial',
+            name: 'LineBasicMaterial',
+            component: () => import('@/view/threejs/4.材质/8.LineBasicMaterial/index.vue'),
+          },
+          {
+            path: 'joint-material',
+            name: 'joint-material',
+            component: () => import('@/view/threejs/4.材质/9.联合材质/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]

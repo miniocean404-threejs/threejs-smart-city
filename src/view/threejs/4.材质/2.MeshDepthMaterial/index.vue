@@ -5,44 +5,48 @@
 <script setup>
 import { onMounted } from 'vue'
 import * as THREE from 'three'
+import { initControls } from '@/utils/controls.js'
+import Stats from 'three/addons/libs/stats.module.js'
 
 onMounted(() => {
   const app = document.querySelector('#app')
   const canvasDom = document.querySelector('#canvas')
 
-  const scene = new THREE.Scene()
-
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
-  // const camera = new THREE.OrthographicCamera(-10, 10, 10, -10, 1, 1000)
-  camera.position.set(0, 0, 20)
-  // 透视投影及正射投影都可以单独设置相机中的参数
-  camera.far = 1000
-  camera.updateProjectionMatrix() // 相机修改参数必须调用这个函数进行更新
-
   const renderer = new THREE.WebGLRenderer()
   renderer.setSize(window.innerWidth, window.innerHeight)
   if (!canvasDom) {
+    const stats = new Stats() // 开启性能检测
     renderer.domElement.id = 'canvas'
+
     app.appendChild(renderer.domElement)
+    app.appendChild(stats.dom)
   }
 
-  const cubeGeometry = new THREE.BoxGeometry(10, 10, 10)
-  const cubeMaterial = new THREE.MeshBasicMaterial({
-    color: 0xffff00,
-    // 是否以线框模式绘制
-    wireframe: true,
+  const axes = new THREE.AxesHelper(10)
+
+  const scene = new THREE.Scene()
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
+  camera.position.set(0, 0, 5)
+
+  const cubeGeometry = new THREE.BoxGeometry(1, 1, 1)
+  const cubeMaterial = new THREE.MeshDepthMaterial({
+    // opacity: 1
   })
   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
-  scene.add(cube)
+  const spotLight = new THREE.SpotLight(0xffffff)
+  spotLight.position.set(-10, 10, 90)
 
-  renderer.render(scene, camera)
+  initControls(cubeMaterial, camera)
+
+  scene.add(axes)
+  scene.add(cube)
+  scene.add(spotLight)
 
   const animation = () => {
     cube.rotation.x += 0.01
     cube.rotation.y += 0.01
 
-    // 渲染
     renderer.render(scene, camera)
 
     requestAnimationFrame(animation)
