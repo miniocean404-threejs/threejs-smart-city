@@ -1,5 +1,6 @@
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
 import * as THREE from 'three'
+import * as SceneUtils from 'three/addons/utils/SceneUtils.js'
 
 const changePropGroup = {
   color: {
@@ -41,26 +42,31 @@ const changePropGroup = {
       camera.updateProjectionMatrix()
     },
   },
+  // 光照强度
   intensity: {
     extends: [0, 10],
     getValue: (item) => item.intensity,
     setValue: (item, value) => (item.intensity = +value),
   },
+  // 光源到光源结束的距离，不会随着距离衰减 默认 0
   distance: {
     extends: [0, 2],
     getValue: (item) => item.distance,
     setValue: (item, value) => (item.distance = +value),
   },
+  // 光线散射角度 默认 Math.PI/3
   angle: {
     extends: [0, Math.PI / 2],
     getValue: (item) => item.angle,
     setValue: (item, value) => (item.angle = +value),
   },
+  // 光照模糊度，用于照射到平面（地面）时使用，测试时可将 plane 的材质改为 MeshBasicMaterial
   penumbra: {
     extends: [0, Math.PI / 2],
     getValue: (item) => item.penumbra,
     setValue: (item, value) => (item.penumbra = +value),
   },
+  // 衰变
   decay: {
     extends: [0, Math.PI / 2],
     getValue: (item) => item.decay,
@@ -123,6 +129,26 @@ const changePropGroup = {
       }
     },
   },
+  width: {
+    extends: [0, 20],
+    getValue: (item, camera, mesh) => mesh.children[0].geometry.parameters.width,
+    setValue: (item, value, camera, mesh, scene, controls) => removeAndAdd(item, value, camera, mesh, scene, controls),
+  },
+  height: {
+    extends: [0, 20],
+    getValue: (item, camera, mesh) => mesh.children[0].geometry.parameters.height,
+    setValue: (item, value, camera, mesh, scene, controls) => removeAndAdd(item, value, camera, mesh, scene, controls),
+  },
+  widthSegments: {
+    extends: [0, 20],
+    getValue: (item, camera, mesh) => mesh.children[0].geometry.parameters.widthSegments,
+    setValue: (item, value, camera, mesh, scene, controls) => removeAndAdd(item, value, camera, mesh, scene, controls),
+  },
+  heightSegments: {
+    extends: [0, 20],
+    getValue: (item, camera, mesh) => mesh.children[0].geometry.parameters.heightSegments,
+    setValue: (item, value, camera, mesh, scene, controls) => removeAndAdd(item, value, camera, mesh, scene, controls),
+  },
 }
 
 const lightType = {
@@ -149,30 +175,24 @@ const lightType = {
   ShaderMaterial: ['alpha'], // 着色器材质
   LineBasicMaterial: ['color'], // 实线
   LineDashedMaterial: ['dashSize', 'gapSize'], // 虚线
+  PlaneGeometry: ['width', 'height', 'widthSegments', 'heightSegments'], // 二维平面
 }
 
-export const initControls = (element, camera) => {
+export const initControls = (element, camera, mesh, scene) => {
   const gui = new GUI()
   const types = lightType[element.type]
-  const controls = {
-    color: 0xffffff, // 光照颜色
-    intensity: 1, // 光照强度
-    distance: 0, // 光源到光源结束的距离，不会随着距离衰减 默认 0
-    angle: Math.PI / 3, // 光线散射角度 默认 Math.PI/3
-    penumbra: 0, // 光照模糊度，用于照射到平面（地面）时使用，测试时可将 plane 的材质改为 MeshBasicMaterial
-    decay: 2, // 衰变
-  }
+  const controls = {}
 
   if (!types?.length) return
   types.map((needPropName) => {
     const changeProp = changePropGroup[needPropName]
     if (changeProp) {
       // 获取默认属性
-      controls[needPropName] = changeProp.getValue(element, camera)
+      controls[needPropName] = changeProp.getValue(element, camera, mesh, scene)
       const extendsProp = changeProp.extends || []
 
       gui[changeProp.method || 'add'](controls, needPropName, ...extendsProp).onChange((v) => {
-        changeProp.setValue(element, v, camera)
+        changeProp.setValue(element, v, camera, mesh, scene, controls)
       })
     }
   })
@@ -184,4 +204,20 @@ export const initControls = (element, camera) => {
 
   // const key = ''
   // gui.add(controls, key, '其他参数').onChange(() => {})
+}
+
+const removeAndAdd = (item, value, camera, mesh, scene, controls) => {
+  scene.remove(mesh)
+
+  const lambert = new THREE.MeshLambertMaterial({ color: 0xff0000 })
+  const basic = new THREE.MeshBasicMaterial({ wireframe: true })
+
+  const arg = []
+  for (const [_, value] of Object.entries(controls)) {
+    arg.push(value)
+  }
+
+  const newMesh = new SceneUtils.createMultiMaterialObject(new THREE[item.type](...arg), [lambert, basic])
+
+  scene.add(newMesh)
 }

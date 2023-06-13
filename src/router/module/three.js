@@ -127,6 +127,16 @@ export default [
           },
         ],
       },
+      {
+        path: 'geometry',
+        children: [
+          {
+            path: '2d',
+            name: '2d',
+            component: () => import('@/view/threejs/5.几何体/1.二维平面/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
