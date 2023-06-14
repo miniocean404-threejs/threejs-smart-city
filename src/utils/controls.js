@@ -179,6 +179,9 @@ const lightType = {
 }
 
 export const initControls = (element, camera, mesh, scene) => {
+  const guiDom = document.querySelector('.lil-gui')
+  if (guiDom) return
+
   const gui = new GUI()
   const types = lightType[element.type]
   const controls = {}
@@ -188,7 +191,7 @@ export const initControls = (element, camera, mesh, scene) => {
     const changeProp = changePropGroup[needPropName]
     if (changeProp) {
       // 获取默认属性
-      controls[needPropName] = changeProp.getValue(element, camera, mesh, scene)
+      controls[needPropName] = changeProp.getValue(element, camera, mesh.pointer, scene)
       const extendsProp = changeProp.extends || []
 
       gui[changeProp.method || 'add'](controls, needPropName, ...extendsProp).onChange((v) => {
@@ -207,7 +210,8 @@ export const initControls = (element, camera, mesh, scene) => {
 }
 
 const removeAndAdd = (item, value, camera, mesh, scene, controls) => {
-  scene.remove(mesh)
+  const { x, y, z } = mesh.pointer.rotation
+  scene.remove(mesh.pointer)
 
   const lambert = new THREE.MeshLambertMaterial({ color: 0xff0000 })
   const basic = new THREE.MeshBasicMaterial({ wireframe: true })
@@ -217,7 +221,8 @@ const removeAndAdd = (item, value, camera, mesh, scene, controls) => {
     arg.push(value)
   }
 
-  const newMesh = new SceneUtils.createMultiMaterialObject(new THREE[item.type](...arg), [lambert, basic])
-
-  scene.add(newMesh)
+  mesh.pointer = new SceneUtils.createMultiMaterialObject(new THREE[item.type](...arg), [lambert, basic])
+  // 获取原来元素的现存旋转角度
+  mesh.pointer.rotation.set(x, y, z)
+  scene.add(mesh.pointer)
 }

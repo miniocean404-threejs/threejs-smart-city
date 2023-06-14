@@ -39,7 +39,8 @@ onMounted(() => {
   const lambert = new THREE.MeshLambertMaterial({ color: 0xff0000 })
   const basic = new THREE.MeshBasicMaterial({ wireframe: true })
 
-  const mesh = new SceneUtils.createMultiMaterialObject(geometry, [lambert, basic])
+  // 因为删除添加不是同一个 mesh 所以会有重叠现象，所以使用对象传递
+  const mesh = { pointer: new SceneUtils.createMultiMaterialObject(geometry, [lambert, basic]) }
 
   const spotLight = new THREE.SpotLight(0xffffff)
   spotLight.position.set(-10, 10, 90)
@@ -47,12 +48,12 @@ onMounted(() => {
   initControls(geometry, camera, mesh, scene)
 
   scene.add(axes)
-  scene.add(mesh)
+  scene.add(mesh.pointer)
   scene.add(spotLight)
 
   const animation = () => {
-    mesh.rotation.x += 0.01
-    mesh.rotation.y += 0.01
+    mesh.pointer.rotation.x += 0.01
+    mesh.pointer.rotation.y += 0.01
 
     renderer.render(scene, camera)
 
