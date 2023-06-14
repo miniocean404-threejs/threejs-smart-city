@@ -29,13 +29,23 @@ onMounted(() => {
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
   camera.position.set(0, 0, 20)
 
-  const geometry = new THREE.PlaneGeometry(
+  // const geometry = new THREE.PlaneGeometry(
+  //   10,
+  //   10,
+  //   // 宽度高度由几个平分的面组成一个最后完整的图形
+  //   3,
+  //   2,
+  // )
+
+  // 性能更优
+  const geometry = new THREE.PlaneBufferGeometry(
     10,
     10,
     // 宽度高度由几个平分的面组成一个最后完整的图形
     3,
     2,
   )
+
   const lambert = new THREE.MeshLambertMaterial({ color: 0xff0000 })
   const basic = new THREE.MeshBasicMaterial({ wireframe: true })
 

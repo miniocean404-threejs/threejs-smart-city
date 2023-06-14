@@ -176,6 +176,7 @@ const lightType = {
   LineBasicMaterial: ['color'], // 实线
   LineDashedMaterial: ['dashSize', 'gapSize'], // 虚线
   PlaneGeometry: ['width', 'height', 'widthSegments', 'heightSegments'], // 二维平面
+  PlaneBufferGeometry: ['width', 'height', 'widthSegments', 'heightSegments'], // 二维平面 性能更优
 }
 
 export const initControls = (element, camera, mesh, scene) => {
