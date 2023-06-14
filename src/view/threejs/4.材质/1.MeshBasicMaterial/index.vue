@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import * as THREE from 'three'
-import { initControls } from '@/utils/controls.js'
+import { initControls } from '@/utils/gui-contrils/controls.js'
 import { ColorRepresentation } from 'three/src/math/Color.js'
 import { Texture } from 'three/src/textures/Texture.js'
 import { Combine } from 'three/src/constants.js'

@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import * as THREE from 'three'
-import { initControls } from '@/utils/controls.js'
+import { initControls } from '@/utils/gui-contrils/controls.js'
 import Stats from 'three/addons/libs/stats.module.js'
 
 onMounted(() => {

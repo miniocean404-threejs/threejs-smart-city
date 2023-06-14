@@ -7,7 +7,7 @@ import { onMounted } from 'vue'
 import * as THREE from 'three'
 import * as SceneUtils from 'three/addons/utils/SceneUtils.js'
 import Stats from 'three/addons/libs/stats.module.js'
-import { initControls } from '@/utils/controls.js'
+import { initControls } from '@/utils/gui-contrils/controls.js'
 
 onMounted(() => {
   const app = document.querySelector('#app')
@@ -29,21 +29,17 @@ onMounted(() => {
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
   camera.position.set(0, 0, 20)
 
-  // const geometry = new THREE.PlaneGeometry(
-  //   10,
-  //   10,
-  //   // 宽度高度由几个平分的面组成一个最后完整的图形
-  //   3,
-  //   2,
-  // )
-
-  // 性能更优
-  const geometry = new THREE.PlaneBufferGeometry(
-    10,
-    10,
-    // 宽度高度由几个平分的面组成一个最后完整的图形
-    3,
+  const geometry = new THREE.TorusGeometry(
+    // 圆环的半径，越大水平面越长，内部越空
     2,
+    // 管子半径(粗细)
+    1,
+    // 长度分成多少段
+    10,
+    // 宽度分成多少段
+    10,
+    // 是否形成一个完整的圆环
+    Math.PI * 2,
   )
 
   const lambert = new THREE.MeshLambertMaterial({ color: 0xff0000 })

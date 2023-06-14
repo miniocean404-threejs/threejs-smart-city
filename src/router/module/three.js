@@ -131,9 +131,57 @@ export default [
         path: 'geometry',
         children: [
           {
-            path: '2d',
-            name: '2d',
-            component: () => import('@/view/threejs/5.几何体/1.二维平面/index.vue'),
+            path: 'PlaneGeometry',
+            name: 'PlaneGeometry',
+            component: () => import('@/view/threejs/5.几何体/1.PlaneGeometry/index.vue'),
+          },
+          {
+            path: 'CircleGeometry',
+            name: 'CircleGeometry',
+            component: () => import('@/view/threejs/5.几何体/2.CircleGeometry/index.vue'),
+          },
+          {
+            path: 'ShapeGeometry',
+            name: 'ShapeGeometry',
+            component: () => import('@/view/threejs/5.几何体/3.ShapeGeometry/index.vue'),
+          },
+          {
+            path: 'CubeGeometry',
+            name: 'CubeGeometry',
+            component: () => import('@/view/threejs/5.几何体/4.CubeGeometry/index.vue'),
+          },
+          {
+            path: 'SphereGeometry',
+            name: 'SphereGeometry',
+            component: () => import('@/view/threejs/5.几何体/6.SphereGeometry/index.vue'),
+          },
+          {
+            path: 'CylinderGeometry',
+            name: 'CylinderGeometry',
+            component: () => import('@/view/threejs/5.几何体/7.CylinderGeometry/index.vue'),
+          },
+          {
+            path: 'TorusGeometry',
+            name: 'TorusGeometry',
+            component: () => import('@/view/threejs/5.几何体/8.TorusGeometry/index.vue'),
+          },
+          {
+            path: 'TorusKnotGeometry',
+            name: 'TorusKnotGeometry',
+            component: () => import('@/view/threejs/5.几何体/9.TorusKnotGeometry/index.vue'),
+          },
+          {
+            path: 'polyhedron',
+            name: 'polyhedron',
+            component: () =>
+              import(
+                '@/view/threejs/5.几何体/10.PolyhedronGeometry-TetrahedronGeometry-OctahedronGeometry-IcosahedronGeometry/index.vue'
+              ),
+          },
+          {
+            path: 'TextGeometry',
+            name: 'TextGeometry',
+            component: () => import('@/view/threejs/5.几何体/11.TextGeometry/index.vue'),
           },
         ],
       },

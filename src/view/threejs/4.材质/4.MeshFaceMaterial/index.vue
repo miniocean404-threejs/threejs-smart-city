@@ -6,7 +6,7 @@
 import { onMounted } from 'vue'
 import * as THREE from 'three'
 import Stats from 'three/examples/jsm/libs/stats.module.js'
-import { initControls } from '@/utils/controls.js'
+import { initControls } from '@/utils/gui-contrils/controls.js'
 
 onMounted(() => {
   const app = document.querySelector('#app')

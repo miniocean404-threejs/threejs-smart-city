@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted } from 'vue'
 import * as THREE from 'three'
-import { initControls } from '@/utils/controls.js'
+import { initControls } from '@/utils/gui-contrils/controls.js'
 
 // 基础光源
 // THREE.AmbientLight 环境光:不需要设置位置，对整个场景的对象都生效
