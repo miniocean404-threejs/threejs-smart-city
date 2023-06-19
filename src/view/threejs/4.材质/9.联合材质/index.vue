@@ -11,11 +11,11 @@ import Stats from 'three/addons/libs/stats.module.js'
 onMounted(() => {
   const app = document.querySelector('#app')
   const canvasDom = document.querySelector('#canvas')
+  const stats = new Stats() // 开启性能检测
 
   const renderer = new THREE.WebGLRenderer()
   renderer.setSize(window.innerWidth, window.innerHeight)
   if (!canvasDom) {
-    const stats = new Stats() // 开启性能检测
     renderer.domElement.id = 'canvas'
 
     app.appendChild(renderer.domElement)
@@ -45,7 +45,7 @@ onMounted(() => {
   const animation = () => {
     cube.rotation.x += 0.01
     cube.rotation.y += 0.01
-
+    stats.update()
     renderer.render(scene, camera)
 
     requestAnimationFrame(animation)

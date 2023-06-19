@@ -15,11 +15,11 @@ import { textOptions } from '@/utils/gui-contrils/constant.js'
 onMounted(async () => {
   const app = document.querySelector('#app')
   const canvasDom = document.querySelector('#canvas')
+  const stats = new Stats() // 开启性能检测
 
   const renderer = new THREE.WebGLRenderer()
   renderer.setSize(window.innerWidth, window.innerHeight)
   if (!canvasDom) {
-    const stats = new Stats() // 开启性能检测
     renderer.domElement.id = 'canvas'
 
     app.appendChild(renderer.domElement)
@@ -68,7 +68,7 @@ onMounted(async () => {
     mesh.pointer.rotation.y += 0.01
 
     renderer.render(scene, camera)
-
+    stats.update()
     requestAnimationFrame(animation)
   }
 
