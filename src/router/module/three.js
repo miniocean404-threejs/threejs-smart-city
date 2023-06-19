@@ -185,6 +185,21 @@ export default [
           },
         ],
       },
+      {
+        path: 'animation',
+        children: [
+          {
+            path: 'tween',
+            name: 'tween',
+            component: () => import('@/view/threejs/6.动画和相机/1.tween/index.vue'),
+          },
+          {
+            path: 'select',
+            name: 'select',
+            component: () => import('@/view/threejs/6.动画和相机/2.点击选择对象/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
