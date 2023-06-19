@@ -198,6 +198,16 @@ export default [
             name: 'select',
             component: () => import('@/view/threejs/6.动画和相机/2.点击选择对象/index.vue'),
           },
+          {
+            path: 'load',
+            name: 'load',
+            component: () => import('@/view/threejs/6.动画和相机/3.加载外部文件/index.vue'),
+          },
+          {
+            path: 'camera',
+            name: 'camera',
+            component: () => import('@/view/threejs/6.动画和相机/4.相机/index.vue'),
+          },
         ],
       },
     ],
