@@ -37,19 +37,52 @@ onMounted(() => {
 
   const geometry = new THREE.CylinderGeometry(2, 2, 40, 8, 2, false)
   const material = new THREE.MeshPhongMaterial()
-  const mesh = new THREE.Mesh(geometry, material)
+  // 蒙皮 - 皮肤 , 将圆柱体作为皮肤画到骨骼动画上
+  const mesh = new THREE.SkinnedMesh(geometry, material)
+  // 骨骼辅助显示
+  const skeletonHelper = new THREE.SkeletonHelper(mesh)
 
   const spotLight = new THREE.SpotLight(0xffffff)
   spotLight.position.set(2000, 8000, 4000)
 
-  scene.add(mesh)
-  scene.add(axes)
-  scene.add(spotLight)
+  // 创建骨骼动画一个起点
+  let b1 = new THREE.Bone()
+  b1.position.set(0, 20, 0)
 
+  let b2 = new THREE.Bone()
+  b2.position.set(0, 10, 0)
+
+  let b3 = new THREE.Bone()
+  b3.position.set(0, 10, 0)
+
+  let b4 = new THREE.Bone()
+  b4.position.set(0, 10, 0)
+
+  let b5 = new THREE.Bone()
+  b5.position.set(0, 10, 0)
+
+  b1.add(b2)
+  b2.add(b3)
+  b3.add(b4)
+  b4.add(b5)
+
+  // 创建骨架
+  const skeleton = new THREE.Skeleton([b1, b2, b3, b4, b5])
+  mesh.add(skeleton.bones[0] || b1)
+  mesh.bind(skeleton)
+
+  scene.add(mesh)
+  scene.add(spotLight)
+  scene.add(axes)
+  scene.add(skeletonHelper)
+
+  let step = 0.1
   const animation = () => {
     controls.update()
-    renderer.render(scene, camera)
 
+    console.log(mesh.skeleton)
+
+    renderer.render(scene, camera)
     requestAnimationFrame(animation)
   }
 
