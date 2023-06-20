@@ -208,6 +208,11 @@ export default [
             name: 'camera',
             component: () => import('@/view/threejs/6.动画和相机/4.相机/index.vue'),
           },
+          {
+            path: 'skeleton',
+            name: 'skeleton',
+            component: () => import('@/view/threejs/6.动画和相机/5.骨骼动画/index.vue'),
+          },
         ],
       },
     ],

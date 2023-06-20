@@ -39,14 +39,31 @@ onMounted(() => {
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
-  camera.position.set(0, 300, 400)
+  camera.position.set(100, 100, 0)
+  // lookAt 默认是 z 轴的负方向
   camera.lookAt(0, 0, 0)
-  const trackball = new TrackballControls(camera, renderer.domElement)
+
+  // Clock：用于跟踪时间
+  // FirstPersonControls、FlyControls 需要 controls.update(clock.getDelta()) 更新
+  const clock = new THREE.Clock()
+
+  // 轨迹球控制器
+  // const controls = new TrackballControls(camera, renderer.domElement)
+
+  // 第一人称
+  // const controls = new FirstPersonControls(camera, renderer.domElement)
+  // controls.lookSpeed = 0.2
+
+  // 飞行控件
+  // const controls = new FlyControls(camera, renderer.domElement)
+  // controls.rollSpeed = 0.2
+
+  // 轨道控件
+  const controls = new OrbitControls(camera, renderer.domElement)
 
   const spotLight = new THREE.SpotLight(0xffffff)
   spotLight.position.set(2000, 8000, 4000)
 
-  console.log(new URL(`../../../../assets/models/`, import.meta.url).href)
   const mtlLoader = new MTLLoader()
   mtlLoader.setPath(new URL(`../../../../assets/models/`, import.meta.url).href)
   mtlLoader.load('/city.mtl', function (materials) {
@@ -75,7 +92,7 @@ onMounted(() => {
   scene.add(spotLight)
 
   const animation = () => {
-    trackball.update()
+    controls.update(clock.getDelta())
     renderer.render(scene, camera)
 
     requestAnimationFrame(animation)
