@@ -24,7 +24,7 @@ onMounted(() => {
     app.appendChild(stats.dom)
   }
 
-  const axes = new THREE.AxesHelper(10)
+  const axes = new THREE.AxesHelper(100)
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -35,7 +35,7 @@ onMounted(() => {
   // 轨道控件
   const controls = new OrbitControls(camera, renderer.domElement)
 
-  const geometry = new THREE.CylinderGeometry(2, 2, 40, 8, false)
+  const geometry = new THREE.CylinderGeometry(2, 2, 40, 8, 2, false)
   const material = new THREE.MeshPhongMaterial()
   const mesh = new THREE.Mesh(geometry, material)
 
