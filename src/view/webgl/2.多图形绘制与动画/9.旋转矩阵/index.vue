@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { getRotateMatrix } from '@/utils/matrix.js'
-import { initWebGL } from '@/utils/program.js'
+import { initWebGL } from '@/utils/webgl-program.js'
 const canvasRef = ref(null)
 
 const VERTEX_SHADER_SOURCE = `

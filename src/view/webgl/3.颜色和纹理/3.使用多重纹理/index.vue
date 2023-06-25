@@ -7,7 +7,7 @@ import { onMounted, ref } from 'vue'
 const canvasRef = ref(null)
 import spongebob from '@/assets/image/spongebob.png'
 import dog from '@/assets/image/dog.png'
-import { initWebGL } from '@/utils/program.js'
+import { initWebGL } from '@/utils/webgl-program.js'
 
 const VERTEX_SHADER_SOURCE = `
     attribute vec4 aPosition;
