@@ -36,11 +36,6 @@ onMounted(async () => {
   controls.minDistance = 1
   controls.maxDistance = 50
 
-  const geometry = new THREE.BoxGeometry(5, 5, 5)
-
-  // 创建纹理加载器
-  const loader = new THREE.TextureLoader()
-
   const spotLight = new THREE.SpotLight(0xffffff)
   spotLight.position.set(-10, 10, 90)
 

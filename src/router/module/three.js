@@ -243,6 +243,31 @@ export default [
             name: 'canvas',
             component: () => import('@/view/threejs/7.纹理/5.canvas贴图/index.vue'),
           },
+          {
+            path: 'glow',
+            name: 'glow',
+            component: () => import('@/view/threejs/7.纹理/6.实现辉光/index.vue'),
+          },
+        ],
+      },
+      {
+        path: 'particle',
+        children: [
+          {
+            path: 'system',
+            name: 'system',
+            component: () => import('@/view/threejs/8.粒子/1.粒子和粒子系统/index.vue'),
+          },
+          {
+            path: 'ripple',
+            name: 'ripple',
+            component: () => import('@/view/threejs/8.粒子/2.使用粒子实现水波纹/index.vue'),
+          },
+          {
+            path: 'particle-cube',
+            name: 'particle-cube',
+            component: () => import('@/view/threejs/8.粒子/3.粒子组合成立方体/index.vue'),
+          },
         ],
       },
     ],

@@ -32,4 +32,8 @@ export const initControls = (element, camera, mesh, scene, font) => {
 
   // const key = ''
   // gui.add(controls, key, '其他参数').onChange(() => {})
+
+  // gui.add(params, 'bloomStrength', 0, 10).step(0.01).name('强度').onChange((value) => {
+  //   bloomPass.strength = Number(value)
+  // })
 }
