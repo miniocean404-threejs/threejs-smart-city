@@ -5,7 +5,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 const canvasRef = ref(null)
-import spongebob from '@/assets/spongebob.png'
+import spongebob from '@/assets/image/spongebob.png'
 import { initWebGL } from '@/utils/program.js'
 
 const VERTEX_SHADER_SOURCE = `

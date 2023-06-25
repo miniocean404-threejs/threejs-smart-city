@@ -215,6 +215,16 @@ export default [
           },
         ],
       },
+      {
+        path: 'texture',
+        children: [
+          {
+            path: 'base',
+            name: 'base',
+            component: () => import('@/view/threejs/7.纹理/1.基础纹理/index.vue'),
+          },
+        ],
+      },
     ],
   },
 ]
