@@ -34,8 +34,10 @@ onMounted(async () => {
     showMesh: false, // 是否要现在显示立方体
   }
 
-  const { newPosition, oldPosition } = getNewOldPosition(geometry)
-  mesh = createRandomPointMesh(geometry, newPosition)
+  // 获取原点以便于 tween 恢复原位
+  const originPosition = geometry.attributes.position.clone()
+
+  mesh = createRandomPointMesh(geometry)
   scene.add(mesh)
 
   const gui = new GUI()
@@ -45,22 +47,16 @@ onMounted(async () => {
       .step(0.01)
       .name(key)
       .onChange(() => {
+        // 删除之前保留的 mesh
         scene.remove(mesh)
 
-        if (guiControls.showMesh) {
-          mesh = createCubeMesh()
-        } else {
-          mesh = createRandomPointMesh(geometry, newPosition)
-        }
-
+        mesh = guiControls.showMesh ? createCubeMesh() : createRandomPointMesh(geometry)
         scene.add(mesh)
 
         if (guiControls.polymeric) {
-          toggleState({
+          setTween({
             geometry,
-            oldPosition,
-            mesh,
-            scene,
+            originPosition,
             onFinish() {
               if (guiControls.completeMesh) {
                 scene.remove(mesh)
@@ -73,8 +69,6 @@ onMounted(async () => {
       })
   }
 
-  scene.add(mesh)
-
   tick({
     ...prop,
     render() {
@@ -84,7 +78,19 @@ onMounted(async () => {
   })
 })
 
-const createRandomPointMesh = (geometry, newPosition) => {
+const createRandomPointMesh = (geometry, range = 100) => {
+  const position = geometry.attributes.position
+  let newPosition = []
+
+  for (let i = 0; i < position.count; i++) {
+    // 设置粒子随机点
+    newPosition.push(
+      Math.random() * range - range / 2,
+      Math.random() * range - range / 2,
+      Math.random() * range - range / 2,
+    )
+  }
+
   const points = new THREE.Float32BufferAttribute(newPosition, 3)
 
   // 可以通过这个或者下方的方式设置位置属性
@@ -114,29 +120,6 @@ function createCubeMesh() {
   return new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10, 10, 10, 10), new THREE.MeshNormalMaterial())
 }
 
-const getNewOldPosition = (geometry, range = 100) => {
-  const position = geometry.attributes.position
-  let newPosition = []
-  const oldPosition = []
-
-  for (let i = 0; i < position.count; i++) {
-    // 记录原来的点，以便于 tween 进行位置变换
-    oldPosition.push(position.getX(i), position.getY(i), position.getZ(i))
-
-    // 设置随机点
-    newPosition.push(
-      Math.random() * range - range / 2,
-      Math.random() * range - range / 2,
-      Math.random() * range - range / 2,
-    )
-  }
-
-  return {
-    newPosition,
-    oldPosition,
-  }
-}
-
 const getSprite = (size = 2) => {
   const canvas = document.createElement('canvas')
   canvas.width = size * 2
@@ -164,10 +147,10 @@ const getSprite = (size = 2) => {
   return texture
 }
 
-const toggleState = ({ geometry, oldPosition, mesh, scene, onFinish }) => {
+const setTween = ({ geometry, originPosition, onFinish }) => {
   let listen = false
   const position = geometry.attributes.position
-  const oldPoints = new THREE.Float32BufferAttribute(oldPosition, 3)
+  const oldPoints = new THREE.Float32BufferAttribute(originPosition.array, 3)
   const newPoints = new THREE.Float32BufferAttribute(position.array, 3)
 
   for (let i = 0; i < position.count; i++) {
@@ -183,7 +166,7 @@ const toggleState = ({ geometry, oldPosition, mesh, scene, onFinish }) => {
     }
 
     new TWEEN.Tween(randomPoint)
-      .to(originPoint, 2000)
+      .to(originPoint, 1000)
       .easing(TWEEN.Easing.Quadratic.InOut) // 使用缓动函数使动画流畅。
       .start()
       .onUpdate(() => {
