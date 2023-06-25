@@ -223,6 +223,11 @@ export default [
             name: 'base',
             component: () => import('@/view/threejs/7.纹理/1.基础纹理/index.vue'),
           },
+          {
+            path: 'bump',
+            name: 'bump',
+            component: () => import('@/view/threejs/7.纹理/2.凹凸贴图/index.vue'),
+          },
         ],
       },
     ],
