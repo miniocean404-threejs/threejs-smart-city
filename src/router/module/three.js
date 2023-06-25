@@ -264,8 +264,8 @@ export default [
             component: () => import('@/view/threejs/8.粒子/2.使用粒子实现水波纹/index.vue'),
           },
           {
-            path: 'particle-cube',
-            name: 'particle-cube',
+            path: 'cube',
+            name: 'cube',
             component: () => import('@/view/threejs/8.粒子/3.粒子组合成立方体/index.vue'),
           },
         ],
