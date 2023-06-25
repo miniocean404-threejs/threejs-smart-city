@@ -228,6 +228,16 @@ export default [
             name: 'bump',
             component: () => import('@/view/threejs/7.纹理/2.凹凸贴图/index.vue'),
           },
+          {
+            path: 'vector',
+            name: 'vector',
+            component: () => import('@/view/threejs/7.纹理/3.法相贴图/index.vue'),
+          },
+          {
+            path: 'env',
+            name: 'env',
+            component: () => import('@/view/threejs/7.纹理/4.环境贴图/index.vue'),
+          },
         ],
       },
     ],
