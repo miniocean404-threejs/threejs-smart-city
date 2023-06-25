@@ -52,31 +52,13 @@ onMounted(async () => {
   // 创建一个立方体，和环境保持一致
   const cubeGeometry = new THREE.BoxGeometry(5, 5, 5)
   const cubeMaterial = new THREE.MeshBasicMaterial({
-    envMap: await new THREE.CubeTextureLoader()
-      .setPath(new URL(`../../../../assets/image/sky/`, import.meta.url).href)
-      .loadAsync([`/right.jpg`, `/left.jpg`, `/top.jpg`, `/bottom.jpg`, `/front.jpg`, `/back.jpg`]),
+    map: getCanvasSprite(),
   })
   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-  cube.position.x = -5
-
-  // 创建一个球体，跟随环境光线追踪
-  const sphereGeometry = new THREE.SphereGeometry(4, 15, 15)
-  const cubeRenderTarget = new THREE.WebGLCubeRenderTarget(256, {
-    generateMipmaps: true, // 是否生成纹理图
-    minFilter: THREE.LinearMipmapLinearFilter, // 它选择与被纹理化像素的尺寸最接近的两个mipmap， 并以LinearFilter为标准来从每个mipmap中生成纹理值。最终的纹理值是这两个值的加权平均值
-  })
-  const cubeCamera = new THREE.CubeCamera(0.1, 1000, cubeRenderTarget)
-  const sphereMaterial = new THREE.MeshBasicMaterial({
-    envMap: cubeCamera.renderTarget.texture,
-  })
-  const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
-  sphere.position.x = 5
 
   scene.add(axes)
   scene.add(spotLight)
 
-  scene.add(cubeCamera)
-  scene.add(sphere)
   scene.add(cube)
 
   scene.background = skybox
@@ -87,8 +69,6 @@ onMounted(async () => {
 
     controls.update()
     stats.update()
-    // 更新球体相机
-    cubeCamera.update(renderer, scene)
     renderer.render(scene, camera)
 
     requestAnimationFrame(animation)
@@ -96,6 +76,24 @@ onMounted(async () => {
 
   animation()
 })
+
+const getCanvasSprite = () => {
+  const canvas = document.createElement('canvas')
+  canvas.width = 160
+  canvas.height = 160
+
+  const ctx = canvas.getContext('2d')
+
+  ctx.fillStyle = 'red'
+  ctx.arc(80, 80, 32, 0, Math.PI * 2)
+  ctx.fill()
+
+  const texture = new THREE.Texture(canvas)
+  texture.needsUpdate = true // 需要刷新基础材质的纹理
+
+  // 返回 canvas 创建的纹理
+  return texture
+}
 </script>
 
 <style lang="scss" scoped></style>

@@ -238,6 +238,11 @@ export default [
             name: 'env',
             component: () => import('@/view/threejs/7.纹理/4.环境贴图/index.vue'),
           },
+          {
+            path: 'canvas',
+            name: 'canvas',
+            component: () => import('@/view/threejs/7.纹理/5.canvas贴图/index.vue'),
+          },
         ],
       },
     ],
