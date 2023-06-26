@@ -3,6 +3,8 @@ import { AxesHelper, WebGLRenderer } from 'three'
 import Stats from 'three/addons/libs/stats.module.js'
 import * as THREE from 'three'
 
+let threeJsProp = null
+
 export const initThreeJsWebGL = ({
   canvasDom = '',
   sizes = { width: window.innerWidth, height: window.innerHeight },
@@ -71,18 +73,21 @@ export const initThreeJsWebGL = ({
     camera.updateProjectionMatrix() // 更新摄像头投影矩阵
   })
 
-  return {
+  threeJsProp = {
     scene,
     camera,
     controls,
     renderer,
     stats,
   }
+
+  return threeJsProp
 }
 
 // 页面重绘动画
 export const tick = (option) => {
-  const { scene, camera, controls, renderer, stats, render } = option
+  const { scene, camera, controls, renderer, stats } = threeJsProp
+  const { render } = option
 
   controls && controls.update()
   stats && stats.update()
