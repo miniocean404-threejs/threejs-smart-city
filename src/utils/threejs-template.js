@@ -1,5 +1,5 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { AxesHelper, WebGLRenderer } from 'three'
+import { AxesHelper, Color, WebGLRenderer } from 'three'
 import Stats from 'three/addons/libs/stats.module.js'
 import * as THREE from 'three'
 
@@ -11,7 +11,7 @@ export const initThreeJsWebGL = ({
   isStats = true,
   isAxes = true,
   axesSize = 3000,
-  enableDamping = false,
+  enableDamping = true,
   minDistance = 1,
   maxDistance = 300,
   backgroundColor = 0xffffff,
@@ -45,6 +45,7 @@ export const initThreeJsWebGL = ({
   // 初始化场景
   const scene = new THREE.Scene()
   scene.background = new THREE.Color(backgroundColor) // 设置背景颜色
+  // renderer.setClearColor(new Color(backgroundColor), 1) // 可以使用渲染器设置颜色
 
   // 初始化相机
   const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 1000)
@@ -56,6 +57,7 @@ export const initThreeJsWebGL = ({
   controls.enableDamping = enableDamping // 是否开启阻尼
   controls.minDistance = minDistance // 设置鼠标可滚动距离
   controls.maxDistance = maxDistance
+  controls.enableZoom = true // 是否开启缩放
 
   // 场景添加
   scene.add(camera)
@@ -65,11 +67,12 @@ export const initThreeJsWebGL = ({
   window.addEventListener('resize', () => {
     sizes.width = window.innerWidth
     sizes.height = window.innerHeight
-    // 设置渲染器的像素比
+
+    // 设置渲染器的像素比,适配设备的像素实际应该使用的尺寸
     renderer.setSize(sizes.width, sizes.height)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    // 更新相机
-    camera.aspect = sizes.width / sizes.height // 更新摄像头
+
+    camera.aspect = sizes.width / sizes.height // 更新相机的宽高比
     camera.updateProjectionMatrix() // 更新摄像头投影矩阵
   })
 
