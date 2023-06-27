@@ -4,9 +4,9 @@
 
 <script setup>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { getOrthographic, getTranslateMatrix, mixMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/matrix.js'
-import { initWebGL } from '@/utils/webgl-program.js'
+import { getOrthographic, getTranslateMatrix, mixMatrix } from '@/utils/webgl/matrix.js'
+import { getViewMatrix } from '@/utils/webgl/matrix.js'
+import { initWebGL } from '@/utils/webgl/webgl-program.js'
 const canvasRef = ref(null)
 
 const VERTEX_SHADER_SOURCE = `

@@ -1,16 +1,18 @@
 import blueSky from '@/assets/image/project/white-bg.png'
-import { DoubleSide, Mesh, MeshBasicMaterial, SphereGeometry, TextureLoader } from 'three'
+import { DoubleSide, Mesh, MeshBasicMaterial, SphereGeometry, TextureLoader, Vector3 } from 'three'
 import { loadAssetsFile } from '@/utils/assets-path.js'
 
 export default class SkyFly {
   loader = new TextureLoader()
+  scene = null
 
-  constructor() {
-    this.init()
+  constructor({ scene }) {
+    this.scene = scene
+    this.createSkyBoxMesh().then()
   }
 
-  async init() {
-    // 创建球形天空盒
+  async createSkyBoxMesh() {
+    // 创建球形天空盒, 如果球体过大，并且缩放过程中显示白色球体，需要吧相机的 far 设置的很大
     const geometry = new SphereGeometry(5000, 32, 32)
     const material = new MeshBasicMaterial({
       side: DoubleSide,
@@ -19,8 +21,9 @@ export default class SkyFly {
 
     const sphereMesh = new Mesh(geometry, material)
 
-    sphereMesh.position.copy({ x: 0, y: 0, z: 0 })
+    sphereMesh.position.copy(new Vector3(0, 0, 0))
+    sphereMesh.name = 'skybox'
 
-    return sphereMesh
+    this.scene.add(sphereMesh)
   }
 }

@@ -1,5 +1,5 @@
 // 平移矩阵，矩阵与数学中的矩阵 对角线 相反
-import { cross, dot, minus, normalize } from '@/utils/helper.js'
+import { cross, dot, minus, normalize } from '@/utils/webgl/helper.js'
 
 export const getTranslateMatrix = (x = 0, y = 0, z = 0) => {
   /* prettier-ignore */

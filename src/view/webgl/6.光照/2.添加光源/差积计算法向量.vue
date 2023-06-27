@@ -4,10 +4,10 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { getPerspective, getRotateMatrix, mixMatrix } from '@/utils/matrix.js'
-import { getViewMatrix } from '@/utils/matrix.js'
-import { initWebGL } from '@/utils/webgl-program.js'
-import { cross } from '@/utils/helper.js'
+import { getPerspective, getRotateMatrix, mixMatrix } from '@/utils/webgl/matrix.js'
+import { getViewMatrix } from '@/utils/webgl/matrix.js'
+import { initWebGL } from '@/utils/webgl/webgl-program.js'
+import { cross } from '@/utils/webgl/helper.js'
 const canvasRef = ref(null)
 
 const VERTEX_SHADER_SOURCE = `

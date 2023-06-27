@@ -11,7 +11,7 @@ export default class City {
 
   constructor({ scene }) {
     this.scene = scene
-    this.load()
+    this.load().then()
   }
 
   async load() {
@@ -40,6 +40,4 @@ export default class City {
       }
     })
   }
-
-  start() {}
 }

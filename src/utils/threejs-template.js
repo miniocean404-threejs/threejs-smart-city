@@ -15,6 +15,8 @@ export const initThreeJsWebGL = ({
   minDistance = 1,
   maxDistance = 300,
   backgroundColor = 0xffffff,
+  near = 0.1,
+  far = 1000,
 }) => {
   // 初始化渲染器
   const app = document.querySelector('#app')
@@ -48,16 +50,17 @@ export const initThreeJsWebGL = ({
   // renderer.setClearColor(new Color(backgroundColor), 1) // 可以使用渲染器设置颜色
 
   // 初始化相机
-  const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, 0.1, 1000)
+  const camera = new THREE.PerspectiveCamera(45, sizes.width / sizes.height, near, far)
   camera.position.z = 120
   camera.lookAt(new THREE.Vector3(0, 0, 0))
 
   // 镜头控制器
   const controls = new OrbitControls(camera, renderer.domElement)
-  controls.enableDamping = enableDamping // 是否开启阻尼
+  controls.enableDamping = enableDamping // 是否开启鼠标拖拽时的缓冲阻尼
   controls.minDistance = minDistance // 设置鼠标可滚动距离
   controls.maxDistance = maxDistance
   controls.enableZoom = true // 是否开启缩放
+  controls.enablePan = true // 是否开启右键拖动
 
   // 场景添加
   scene.add(camera)
