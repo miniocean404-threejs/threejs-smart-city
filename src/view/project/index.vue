@@ -20,7 +20,7 @@ let threeProp = reactive({})
 const isClick = ref(false)
 
 onMounted(async () => {
-  const { scene, camera, controls, renderer, stats } = initThreeJsWebGL({
+  const { scene, camera, controls, renderer, stats, clock } = initThreeJsWebGL({
     canvasDom: '#canvas',
     backgroundColor: 0xffffff,
     maxDistance: 2000,
@@ -38,7 +38,7 @@ onMounted(async () => {
   const directionLight = new THREE.DirectionalLight(0xffffff)
   directionLight.position.set(0, 0, 0)
 
-  new City({ scene })
+  const city = new City({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -46,6 +46,14 @@ onMounted(async () => {
 
   tick({
     render() {
+      city.scanHeight.value += 0.6
+
+      if (city.scanHeight.value > 160) {
+        city.scanHeight.value = 0
+      }
+
+      city.scanTime.value += clock.getDelta()
+
       TWEEN.update() // TWEEN 动画必须设置更新
     },
   })

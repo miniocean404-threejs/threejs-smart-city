@@ -1,5 +1,5 @@
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
-import { AxesHelper, Color, WebGLRenderer } from 'three'
+import { AxesHelper, Clock, WebGLRenderer } from 'three'
 import Stats from 'three/addons/libs/stats.module.js'
 import * as THREE from 'three'
 
@@ -80,12 +80,15 @@ export const initThreeJsWebGL = ({
     camera.updateProjectionMatrix() // 更新摄像头投影矩阵
   })
 
+  const clock = new Clock()
+
   threeJsProp = {
     scene,
     camera,
     controls,
     renderer,
     stats,
+    clock,
   }
 
   return threeJsProp
