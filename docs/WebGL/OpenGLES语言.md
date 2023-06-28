@@ -1,7 +1,9 @@
 # 基础
-程序报错优先看有没有设置精度 -> 然后看分号 -> 然后看程序问题
-不能以 gl_ webgl_ _webgl_ 作为开头，是系统内置的
-数据转换 float() bool() int()
+* 程序执行顺序：
+  <img src="../image/每次render执行循序.png" width="400" style="margin: auto;display: block" alt=""/>
+* 程序报错优先看有没有设置精度 -> 然后看分号 -> 然后看程序问题
+* 不能以 gl_ webgl_ _webgl_ 作为开头，是系统内置的
+* 数据转换 float() bool() int()
 
 ### 矢量
 1. 浮点矢量数据 vec2、vec3、vec4 
@@ -42,6 +44,7 @@ float getFloat(float x,int y){
 2. attribute 只能在顶点着色器汇总，只能全局变量，表示逐顶点信息（单个顶点的信息） 
 3. uniform 能在顶点着色器和片元着色器，只读变量，所有顶点使用这个变量的时候是同一个变量，用来存储影响所有顶点的数据，如：矩阵 
 4. varying 从顶点着色器想片元着色器传递数据
+
 #### 精度限定：提升效率，减少内存开支
 * 可以单独对某个变量声明精度，mediump float f 劣势：会出现精度歧义，精度转换的过程中出现歧义等，不建议舒勇
 * 可以通过 precision 声明着色器的默认精度 例：precision lowp float; 
