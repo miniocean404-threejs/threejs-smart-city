@@ -24,6 +24,7 @@ export const initThreeJsWebGL = ({
   const renderer = new WebGLRenderer({ canvas: canvas ? canvas : undefined })
   renderer.setSize(sizes.width, sizes.height)
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.debug.checkShaderErrors = true // 打开 glsl 错误监控
 
   // 初始化性能检测器
   const stats = isStats && new Stats() // 开启性能检测

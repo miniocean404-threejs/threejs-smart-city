@@ -9,6 +9,9 @@ export default class City {
   fbxLoader = new FBXLoader()
   scene = null
 
+  meshColor = `#1b3045`
+  topColor = '#ffffff'
+
   constructor({ scene }) {
     this.scene = scene
     this.load().then()
@@ -20,10 +23,23 @@ export default class City {
     // 遍历加载的文件的所有对象
     group.traverse((child) => {
       if (child.isMesh) {
+        // 计算盒子边界 和 球的边界
+        child.geometry.computeBoundingBox()
+        child.geometry.computeBoundingSphere()
+
+        const { max, min } = child.geometry.boundingBox
+        const size = max.z - min.z
+
         const material = new ShaderMaterial({
           uniforms: {
-            city_color: {
-              value: new Color('#1b3045'),
+            u_city_color: {
+              value: new Color(this.meshColor),
+            },
+            u_head_color: {
+              value: new Color(this.topColor),
+            },
+            u_size: {
+              value: size,
             },
           },
           vertexShader: vertexShader,

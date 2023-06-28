@@ -1,6 +1,8 @@
 <template>
   <div>
-    <canvas id="canvas" @click="changeCameraPosition">浏览器不支持，请切换浏览器重试</canvas>
+    <canvas id="canvas" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove" @mouseup="canvasMouseUp"
+      >浏览器不支持，请切换浏览器重试</canvas
+    >
   </div>
 </template>
 
@@ -15,6 +17,7 @@ import SkyFly from '@/view/project/sky-fly/index.js'
 import { getClickPosition } from '@/utils/click.js'
 
 let threeProp = reactive({})
+const isClick = ref(false)
 
 onMounted(async () => {
   const { scene, camera, controls, renderer, stats } = initThreeJsWebGL({
@@ -48,16 +51,27 @@ onMounted(async () => {
   })
 })
 
+const canvasMouseDown = () => {
+  isClick.value = true
+}
+
+const canvasMouseMove = () => {
+  isClick.value = false
+}
+
+const canvasMouseUp = (e) => {
+  if (isClick.value) {
+    changeCameraPosition(e)
+  }
+}
+
 const changeCameraPosition = (e) => {
   const mousePoint = getClickPosition({ camera: threeProp.camera, scene: threeProp.scene, e })
 
-  const tween = new TWEEN.Tween(threeProp.camera.position)
-    .to({ x: mousePoint.x, y: mousePoint.y, z: mousePoint.z }, 2000)
+  new TWEEN.Tween(threeProp.camera.position)
+    .to({ x: mousePoint.point.x * 2, y: mousePoint.point.y * 2, z: mousePoint.point.z * 2 }, 1000)
     .start()
 }
 </script>
 
-<style lang="scss" scoped>
-#canvas {
-}
-</style>
+<style lang="scss" scoped></style>
