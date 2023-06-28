@@ -13,7 +13,7 @@ void main() {
     float rangeY = mix(u_min.y,u_max.y,new_time);
 
     // 在当前区间内显示扫描光带
-    if(rangeY < position.y && rangeY > position.y -200.0){
+    if(rangeY < position.y && rangeY > position.y - 200.0){
         float f_blur = 1.0 - sin((position.y - rangeY) / 200.0 * 3.14);
 
         float r = mix(u_live_color.r,line_color.r,f_blur);

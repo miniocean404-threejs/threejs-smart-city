@@ -15,6 +15,7 @@ import { initThreeJsWebGL, tick } from '@/utils/threejs-template.js'
 import City from '@/view/project/city/index.js'
 import SkyFly from '@/view/project/sky-fly/index.js'
 import { getClickPosition } from '@/utils/click.js'
+import Radar from '@/view/project/radar/index.js'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -39,6 +40,7 @@ onMounted(async () => {
   directionLight.position.set(0, 0, 0)
 
   const city = new City({ scene })
+  const radar = new Radar({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -52,7 +54,9 @@ onMounted(async () => {
         city.scanHeight.value = 0
       }
 
-      city.scanTime.value += clock.getDelta()
+      radar.time.value += clock.getDelta()
+
+      city.scanTime.value += clock.getDelta() // clock.getDelta() 获得前后两次执行该方法的时间间隔
 
       TWEEN.update() // TWEEN 动画必须设置更新
     },
