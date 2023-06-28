@@ -7,12 +7,14 @@ uniform vec3 line_color; // 之前线框的颜色
 varying vec3 v_color;
 
 void main() {
-    float new_time = mod(u_time * 1.0, 1.0);
-    // 扫描的位置
+    // 获取小数点后边数值
+    float new_time = mod(u_time, 1.0);
+    // 扫描的位置的百分比      mix 公式：x*(1−a)+y*a
     float rangeY = mix(u_min.y, u_max.y, new_time);
 
     // 在当前区间内显示扫描光带
     if (rangeY > position.y - 200.0 && rangeY < position.y) {
+        // 利用正弦公式创建左右模糊，中间清楚的颜色
         float f_blur = 1.0 - sin((position.y - rangeY) / 200.0 * 3.14);
 
         float r = mix(u_live_color.r, line_color.r, f_blur);
