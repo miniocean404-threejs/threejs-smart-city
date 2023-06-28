@@ -41,8 +41,8 @@ export default class City {
 
         // 让 mesh 继承 child 的旋转、缩放、平移
         mesh.position.copy(child.position)
-        mesh.rotation.copy(child.rotation)
         mesh.scale.copy(child.scale)
+        mesh.rotation.copy(child.rotation)
 
         this.scene.add(mesh)
       }

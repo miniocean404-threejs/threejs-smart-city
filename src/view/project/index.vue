@@ -54,9 +54,10 @@ onMounted(async () => {
         city.scanHeight.value = 0
       }
 
-      radar.time.value += clock.getDelta()
-
-      city.scanTime.value += clock.getDelta() // clock.getDelta() 获得前后两次执行该方法的时间间隔
+      // clock.getDelta() 获得前后两次执行该方法的时间间隔,目前是屏幕间隔时间
+      const delta = clock.getDelta()
+      radar.time.value += delta
+      city.scanTime.value += delta
 
       TWEEN.update() // TWEEN 动画必须设置更新
     },
