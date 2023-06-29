@@ -27,6 +27,7 @@ import Ball from '@/view/project/ball/index.js'
 import Cone from '@/view/project/cone/index.js'
 import FlyLine from '@/view/project/fly-line/index.js'
 import Road from '@/view/project/road/index'
+import Font from '@/view/project/font/index'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -58,6 +59,7 @@ onMounted(async () => {
   const cone = new Cone({ scene })
   const flyLine = new FlyLine({ scene })
   const road = new Road({ scene })
+  const font = new Font({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
