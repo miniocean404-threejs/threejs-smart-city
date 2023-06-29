@@ -9,7 +9,7 @@ export default class Cone {
   isTop = false
 
   color = '#a1ef06'
-  height = {
+  rotation = {
     value: 5,
   }
   top = {
@@ -36,7 +36,7 @@ export default class Cone {
         u_color: {
           value: new Color(this.color),
         },
-        u_height: this.height,
+        u_rotation: this.rotation,
         u_top: this.top,
       },
       transparent: true,

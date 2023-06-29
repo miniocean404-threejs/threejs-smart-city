@@ -70,15 +70,16 @@ onMounted(async () => {
       circle.time.value += delta
       ball.time.value += delta
 
-      cone.height.value += 0.4
-      if (cone.height.value > 160) {
-        cone.height.value = 5
+      // 旋转四棱锥的旋转计算
+      cone.rotation.value += 0.4
+      if (cone.rotation.value > 160) {
+        cone.rotation.value = 5
       }
 
+      // 上下活动高度计算
       if (cone.top.value > 15 || cone.top.value < 0) {
         cone.isTop = !cone.isTop
       }
-
       cone.top.value += cone.isTop ? -0.8 : 0.8
 
       TWEEN.update() // TWEEN 动画必须设置更新
