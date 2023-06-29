@@ -11,10 +11,12 @@ export const getClickPosition = ({ camera, scene, e }) => {
   const standVector = new Vector3(x, y, 0.5)
 
   // 转化为世界坐标 (二维平面位置百分比，在相机中实际的坐标位置)
+  // unproject：使用后会将 standVector 改变 并且返回改变后的 wordVector
   const wordVector = standVector.unproject(camera)
 
   // sub：wordVector 减去某个向量
   // normalize：将向量归一化为 1
+  // sub：使用后会将 wordVector 改变 并且返回改变后的 wordVector
   const ray = wordVector.sub(camera.position).normalize()
 
   // 实现点击选中
@@ -47,11 +49,17 @@ export const getMouseFollowScale = ({ camera, controls, e }) => {
   const standVector = new Vector3(x, y, 0.5)
 
   // 转化为世界坐标 (二维平面位置百分比，在相机中实际的坐标位置)
+  // unproject：使用后会将 standVector 改变 并且返回改变后的 wordVector
   const wordVector = standVector.unproject(camera)
 
   // sub：wordVector 减去某个向量
   // normalize：将向量归一化为 1
+  // sub：使用后会将 wordVector 改变 并且返回改变后的 wordVector
   const ray = wordVector.sub(camera.position).normalize()
+
+  console.log(camera.position)
+
+  console.log(controls.target)
 
   // wheel 事件： e.wheelDelta > 0 向前滚动 e.wheelDelta < 0 向后滚动
   if (e.wheelDelta > 0) {
