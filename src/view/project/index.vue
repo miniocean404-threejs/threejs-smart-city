@@ -17,6 +17,8 @@ import SkyFly from '@/view/project/sky-fly/index.js'
 import { getClickPosition } from '@/utils/click.js'
 import Radar from '@/view/project/radar/index.js'
 import LightWall from '@/view/project/light-wall/index.js'
+import Circle from '@/view/project/circle/index.js'
+import Ball from '@/view/project/ball/index.js'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -43,6 +45,8 @@ onMounted(async () => {
   const city = new City({ scene })
   const radar = new Radar({ scene })
   const lightWall = new LightWall({ scene })
+  const circle = new Circle({ scene })
+  const ball = new Ball({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -61,6 +65,8 @@ onMounted(async () => {
       radar.time.value += delta
       city.scanTime.value += delta
       lightWall.time.value += delta
+      circle.time.value += delta
+      ball.time.value += delta
 
       TWEEN.update() // TWEEN 动画必须设置更新
     },

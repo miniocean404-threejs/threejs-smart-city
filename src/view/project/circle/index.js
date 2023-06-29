@@ -1,23 +1,23 @@
 import { Color, CylinderGeometry, DoubleSide, Mesh, ShaderMaterial } from 'three'
 
-import LightWallVertexShader from './light-wall.vert?raw'
-import LightWallFragmentShader from './light-wall.frag?raw'
+import CircleWallVertexShader from './clrcle.vert?raw'
+import CircleFragmentShader from './circle.frag?raw'
 
-export default class LightWall {
+export default class Circle {
   scene = null
 
-  color = '#fab73f'
+  color = 'blue'
   time = {
     value: 0,
   }
 
   radius = 50
-  height = 50
-  open = true
+  height = 1
+  open = false
   opacity = 0.6
 
   position = {
-    x: -100,
+    x: -200,
     y: 0,
     z: 0,
   }
@@ -25,10 +25,10 @@ export default class LightWall {
   constructor({ scene }) {
     this.scene = scene
 
-    this.createWall()
+    this.createCircle()
   }
 
-  createWall() {
+  createCircle() {
     const geometry = new CylinderGeometry(this.radius, this.radius, this.height, 32, 1, this.open)
     const material = new ShaderMaterial({
       uniforms: {
@@ -44,8 +44,8 @@ export default class LightWall {
         u_time: this.time,
       },
       transparent: true,
-      vertexShader: LightWallVertexShader,
-      fragmentShader: LightWallFragmentShader,
+      vertexShader: CircleWallVertexShader,
+      fragmentShader: CircleFragmentShader,
       side: DoubleSide,
       depthTest: false, // 是否不被遮挡
     })
