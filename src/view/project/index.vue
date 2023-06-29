@@ -19,6 +19,7 @@ import Radar from '@/view/project/radar/index.js'
 import LightWall from '@/view/project/light-wall/index.js'
 import Circle from '@/view/project/circle/index.js'
 import Ball from '@/view/project/ball/index.js'
+import Cone from '@/view/project/cone/index.js'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -47,6 +48,7 @@ onMounted(async () => {
   const lightWall = new LightWall({ scene })
   const circle = new Circle({ scene })
   const ball = new Ball({ scene })
+  const cone = new Cone({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -67,6 +69,17 @@ onMounted(async () => {
       lightWall.time.value += delta
       circle.time.value += delta
       ball.time.value += delta
+
+      cone.height.value += 0.4
+      if (cone.height.value > 160) {
+        cone.height.value = 5
+      }
+
+      if (cone.top.value > 15 || cone.top.value < 0) {
+        cone.isTop = !cone.isTop
+      }
+
+      cone.top.value += cone.isTop ? -0.8 : 0.8
 
       TWEEN.update() // TWEEN 动画必须设置更新
     },
