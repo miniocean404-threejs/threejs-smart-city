@@ -20,6 +20,7 @@ import LightWall from '@/view/project/light-wall/index.js'
 import Circle from '@/view/project/circle/index.js'
 import Ball from '@/view/project/ball/index.js'
 import Cone from '@/view/project/cone/index.js'
+import FlyLine from '@/view/project/fly-line/index.js'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -49,6 +50,7 @@ onMounted(async () => {
   const circle = new Circle({ scene })
   const ball = new Ball({ scene })
   const cone = new Cone({ scene })
+  const flyLine = new FlyLine({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -69,6 +71,7 @@ onMounted(async () => {
       lightWall.time.value += delta
       circle.time.value += delta
       ball.time.value += delta
+      flyLine.time.value += delta
 
       // 旋转四棱锥的旋转计算
       cone.rotation.value += 0.4
