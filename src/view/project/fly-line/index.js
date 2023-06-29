@@ -2,15 +2,10 @@ import {
   BufferGeometry,
   Color,
   Float32BufferAttribute,
-  ConeGeometry,
-  Mesh,
-  MeshBasicMaterial,
   QuadraticBezierCurve3,
   ShaderMaterial,
   Vector3,
   Points,
-  MeshLambertMaterial,
-  PointsMaterial,
 } from 'three'
 
 import FlyLineVertexShader from './fly-line.vert?raw'
@@ -73,8 +68,6 @@ export default class FlyLine {
     const geometry = new BufferGeometry()
     geometry.setAttribute('position', new Float32BufferAttribute(positions, 3))
     geometry.setAttribute('a_position', new Float32BufferAttribute(aPositions, 1))
-
-    console.log(geometry.attributes)
 
     const material = new ShaderMaterial({
       uniforms: {

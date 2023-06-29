@@ -21,6 +21,7 @@ import Circle from '@/view/project/circle/index.js'
 import Ball from '@/view/project/ball/index.js'
 import Cone from '@/view/project/cone/index.js'
 import FlyLine from '@/view/project/fly-line/index.js'
+import Road from '@/view/project/road/index'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -51,6 +52,7 @@ onMounted(async () => {
   const ball = new Ball({ scene })
   const cone = new Cone({ scene })
   const flyLine = new FlyLine({ scene })
+  const road = new Road({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -72,6 +74,7 @@ onMounted(async () => {
       circle.time.value += delta
       ball.time.value += delta
       flyLine.time.value += delta
+      road.time.value += delta
 
       // 旋转四棱锥的旋转计算
       cone.rotation.value += 0.4
