@@ -1,6 +1,11 @@
 <template>
   <div>
-    <canvas id="canvas" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove" @mouseup="canvasMouseUp"
+    <canvas
+      id="canvas"
+      @mousedown="canvasMouseDown"
+      @mousemove="canvasMouseMove"
+      @mouseup="canvasMouseUp"
+      @wheel="canvasMouseWheel"
       >浏览器不支持，请切换浏览器重试</canvas
     >
   </div>
@@ -14,7 +19,7 @@ import { GUI } from 'dat.gui'
 import { initThreeJsWebGL, tick } from '@/utils/threejs-template.js'
 import City from '@/view/project/city/index.js'
 import SkyFly from '@/view/project/sky-fly/index.js'
-import { getClickPosition } from '@/utils/click.js'
+import { getClickPosition, getMouseFollowScale } from '@/utils/click.js'
 import Radar from '@/view/project/radar/index.js'
 import LightWall from '@/view/project/light-wall/index.js'
 import Circle from '@/view/project/circle/index.js'
@@ -105,6 +110,10 @@ const canvasMouseUp = (e) => {
   if (isClick.value) {
     changeCameraPosition(e)
   }
+}
+
+const canvasMouseWheel = (e) => {
+  getMouseFollowScale({ e, camera: threeProp.camera, controls: threeProp.controls })
 }
 
 const changeCameraPosition = (e) => {
