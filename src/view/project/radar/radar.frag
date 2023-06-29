@@ -25,9 +25,9 @@ void main() {
         // 获取 -pi 到 pi 的角度
         float angle = atan(v_position.x, v_position.y);
         // 对 3.14 * 2.0 取模是为了 获取 -pi 到 pi 除以 2pi = 1/2 的大小
-        float new_angle = mod(angle + u_time, 3.14 * 1.0);
+        float new_angle = mod(angle + u_time, 3.14 * 2.0);
 
-        f_opacity = new_angle;
+        f_opacity = 1.0 - new_angle;
     }
 
     // 圆环之外的颜色设置为 0
