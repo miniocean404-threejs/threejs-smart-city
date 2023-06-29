@@ -21,7 +21,7 @@ void main(){
     //       3. 超过 totalNumber 后 (totalNumber - u_length,total)
     if(totalNumber > a_position && totalNumber < a_position + u_length){
         float percentage = (a_position + u_length - totalNumber) / u_length;
-        size *= percentage;
+        size *= percentage; // 当前渲染长度百分比
 
         v_opacity = 1.0;
     }else{
