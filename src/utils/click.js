@@ -57,16 +57,15 @@ export const getMouseFollowScale = ({ camera, controls, e }) => {
   // sub：使用后会将 wordVector 改变 并且返回改变后的 wordVector
   const ray = wordVector.sub(camera.position).normalize()
 
-  console.log(camera.position)
-
-  console.log(controls.target)
-
   // wheel 事件： e.wheelDelta > 0 向前滚动 e.wheelDelta < 0 向后滚动
+  // 通过 standVector 计算偏移量 * 缩放系数 scaleFactor
   if (e.wheelDelta > 0) {
+    // 设置相机偏移角度
     camera.position.x += standVector.x * scaleFactor
     camera.position.y += standVector.y * scaleFactor
     camera.position.z += standVector.z * scaleFactor
 
+    // 设置轨道控制器的中心点位置
     controls.target.x += standVector.x * scaleFactor
     controls.target.y += standVector.y * scaleFactor
     controls.target.z += standVector.z * scaleFactor
