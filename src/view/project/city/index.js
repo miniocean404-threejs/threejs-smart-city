@@ -20,7 +20,7 @@ export default class City {
 
   time = { value: 0 }
 
-  meshColor = `#1B3045`
+  meshColor = `#3e566f`
   topColor = '#ffffff'
   scanColor = '#5588aa'
 
@@ -40,7 +40,7 @@ export default class City {
       if (child.isMesh) {
         this.createMesh(child)
 
-        this.createLineBox(child)
+        // this.createLineBox(child)
       }
     })
   }
