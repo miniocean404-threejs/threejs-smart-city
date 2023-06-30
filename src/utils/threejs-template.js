@@ -66,8 +66,8 @@ export const initThreeJsWebGL = ({
   controls.minPolarAngle = 1
   controls.maxPolarAngle = Math.PI / 2
   // 水平旋转角度限制 你能够水平旋转的角度下限。如果设置，其有效值范围为[-2 * Math.PI，2 * Math.PI]，且旋转角度的上限和下限差值小于2 * Math.PI。默认值为无穷大
-  controls.minAzimuthAngle = -Math.PI
-  controls.maxAzimuthAngle = Math.PI
+  // controls.minAzimuthAngle = -Math.PI
+  // controls.maxAzimuthAngle = Math.PI
 
   // 场景添加
   scene.add(camera)
