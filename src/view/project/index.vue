@@ -28,6 +28,9 @@ import Cone from '@/view/project/cone/index.js'
 import FlyLine from '@/view/project/fly-line/index.js'
 import Road from '@/view/project/road/index'
 import Font from '@/view/project/font/index'
+import Snow from '@/view/project/snow/index'
+import Rain from '@/view/project/rain/index'
+import Smoke from '@/view/project/smoke/index'
 
 let threeProp = reactive({})
 const isClick = ref(false)
@@ -35,7 +38,7 @@ const isClick = ref(false)
 onMounted(async () => {
   const { scene, camera, controls, renderer, stats, clock } = initThreeJsWebGL({
     canvasDom: '#canvas',
-    backgroundColor: 0xffffff,
+    backgroundColor: 0x000000,
     maxDistance: 2000,
     near: 1,
     far: 100000,
@@ -59,7 +62,11 @@ onMounted(async () => {
   const cone = new Cone({ scene })
   const flyLine = new FlyLine({ scene })
   const road = new Road({ scene })
-  const font = new Font({ scene })
+  const rain = new Rain({ scene })
+  // const snow = new Snow({ scene })
+  const smoke = new Smoke({ scene })
+
+  new Font({ scene })
   new SkyFly({ scene })
 
   scene.add(directionLight)
@@ -82,6 +89,9 @@ onMounted(async () => {
       ball.time.value += delta
       flyLine.time.value += delta
       road.time.value += delta
+      // snow.updateSnowPosition()
+      rain.updateRainPosition()
+      smoke.update()
 
       // 旋转四棱锥的旋转计算
       cone.rotation.value += 0.4
