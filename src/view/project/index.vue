@@ -70,8 +70,8 @@ onMounted(async () => {
   new Font({ scene })
   // new SkyFly({ scene })
 
-  scene.add(directionLight)
-  scene.add(ambientLight)
+  // scene.add(directionLight)
+  // scene.add(ambientLight)
 
   tick({
     render() {
@@ -131,7 +131,7 @@ const canvasMouseUp = (e) => {
 }
 
 const canvasMouseWheel = (e) => {
-  // getMouseFollowScale({ e, camera: threeProp.camera, controls: threeProp.controls })
+  getMouseFollowScale({ e, camera: threeProp.camera, controls: threeProp.controls })
 }
 
 const changeCameraPosition = (e) => {
