@@ -14,7 +14,7 @@ void main() {
     float line_height = 6.0;
 
     // 使用 z 的原因是 mesh 继承了源图形的旋转角度、v_position.z / u_size 计算所占高度百分比
-    base_color = mix(u_city_color, u_head_color, v_position.z / u_size);
+    base_color = mix(base_color, u_head_color, v_position.z / u_size);
 
     // 每次渲染的时候所有顶点数据已经有了，拿到当时的数据对有所顶点进行遍历判断
     // 代表扫描线条的高度是多少

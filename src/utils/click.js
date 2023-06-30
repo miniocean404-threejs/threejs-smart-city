@@ -5,7 +5,7 @@ export const getClickPosition = ({ camera, scene, e }) => {
 
   // 获取浏览器 归一化 二维平面坐标
   const x = (e.clientX / window.innerWidth) * 2 - 1
-  const y = (e.clientY / window.innerHeight) * 2 - 1
+  const y = -(e.clientY / window.innerHeight) * 2 + 1
 
   // 获取点击三维坐标
   const standVector = new Vector3(x, y, 0.5)
@@ -43,7 +43,7 @@ export const getMouseFollowScale = ({ camera, controls, e }) => {
 
   // 获取浏览器 归一化 二维平面坐标
   const x = (e.clientX / window.innerWidth) * 2 - 1
-  const y = (e.clientY / window.innerHeight) * 2 - 1
+  const y = -(e.clientY / window.innerHeight) * 2 + 1
 
   // 获取滑轮三维坐标
   const standVector = new Vector3(x, y, 0.5)

@@ -1,4 +1,4 @@
-import { Color, CylinderGeometry, DoubleSide, Mesh, ShaderMaterial, SphereGeometry } from 'three'
+import { Color, DoubleSide, Mesh, ShaderMaterial, SphereGeometry } from 'three'
 
 import BallVertexShader from './ball.vert?raw'
 import BallFragmentShader from './ball.frag?raw'

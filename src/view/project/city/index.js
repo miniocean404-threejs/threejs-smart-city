@@ -1,5 +1,6 @@
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import { Color, EdgesGeometry, LineBasicMaterial, LineSegments, Mesh, ShaderMaterial } from 'three'
+import * as THREE from 'three'
 
 import { loadAssetsFile } from '@/utils/assets-path.js'
 
@@ -17,10 +18,13 @@ export default class City {
   scanHeight = { value: 0 }
   scanTime = { value: 0 }
 
-  meshColor = `#1b3045`
+  time = { value: 0 }
+
+  meshColor = `#1B3045`
   topColor = '#ffffff'
-  lineColor = '#4f90bb'
   scanColor = '#5588aa'
+
+  lineColor = '#4f90bb'
   rowScanColor = '#ffffff'
 
   constructor({ scene }) {
@@ -29,28 +33,19 @@ export default class City {
   }
 
   async load() {
-    const group = await this.fbxLoader.loadAsync(loadAssetsFile(beijing), (progress) => {})
+    const group = await this.fbxLoader.loadAsync('/src/assets/models/beijing.fbx' || beijing, (progress) => {})
 
     // 遍历加载的文件的所有对象
     group.traverse((child) => {
       if (child.isMesh) {
-        const material = this.createLinerGradientColorMaterial(child)
+        this.createMesh(child)
+
         this.createLineBox(child)
-
-        const mesh = new Mesh(child.geometry, material)
-
-        // 让 mesh 继承 child 的旋转、缩放、平移
-        mesh.position.copy(child.position)
-        mesh.scale.copy(child.scale)
-        mesh.rotation.copy(child.rotation)
-
-        this.scene.add(mesh)
       }
     })
   }
 
-  // 使用 glsl 给建筑物设置渐变的颜色
-  createLinerGradientColorMaterial(child) {
+  createMesh(child) {
     // 计算盒子边界 和 球的边界
     child.geometry.computeBoundingBox()
     child.geometry.computeBoundingSphere()
@@ -58,7 +53,8 @@ export default class City {
     const { max, min } = child.geometry.boundingBox
     const size = max.z - min.z
 
-    return new ShaderMaterial({
+    // 使用 glsl 给建筑物设置渐变的颜色
+    const material = new ShaderMaterial({
       uniforms: {
         // 创建上升扫描线
         u_height: this.scanHeight,
@@ -74,10 +70,22 @@ export default class City {
         u_size: {
           value: size,
         },
+
+        // 建筑物生长参数
+        u_time: this.time,
       },
       vertexShader: CityVertexShader,
       fragmentShader: CityFragmentShader,
     })
+
+    const mesh = new Mesh(child.geometry, material)
+
+    // 让 mesh 继承 child 的旋转、缩放、平移
+    mesh.position.copy(child.position)
+    mesh.scale.copy(child.scale)
+    mesh.rotation.copy(child.rotation)
+
+    this.scene.add(mesh)
   }
 
   createLineBox(child) {

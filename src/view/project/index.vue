@@ -32,8 +32,9 @@ import Snow from '@/view/project/snow/index'
 import Rain from '@/view/project/rain/index'
 import Smoke from '@/view/project/smoke/index'
 
-let threeProp = reactive({})
+const threeProp = reactive({})
 const isClick = ref(false)
+const tweenPositionRef = ref()
 
 onMounted(async () => {
   const { scene, camera, controls, renderer, stats, clock } = initThreeJsWebGL({
@@ -67,7 +68,7 @@ onMounted(async () => {
   const smoke = new Smoke({ scene })
 
   new Font({ scene })
-  new SkyFly({ scene })
+  // new SkyFly({ scene })
 
   scene.add(directionLight)
   scene.add(ambientLight)
@@ -84,6 +85,7 @@ onMounted(async () => {
       const delta = clock.getDelta()
       radar.time.value += delta
       city.scanTime.value += delta
+      city.time.value += delta
       lightWall.time.value += delta
       circle.time.value += delta
       ball.time.value += delta
@@ -105,6 +107,10 @@ onMounted(async () => {
       }
       cone.top.value += cone.isTop ? -0.8 : 0.8
 
+      // if (tweenPositionRef.value) {
+      //   tweenPositionRef.value.update()
+      // }
+
       TWEEN.update() // TWEEN 动画必须设置更新
     },
   })
@@ -125,14 +131,15 @@ const canvasMouseUp = (e) => {
 }
 
 const canvasMouseWheel = (e) => {
-  getMouseFollowScale({ e, camera: threeProp.camera, controls: threeProp.controls })
+  // getMouseFollowScale({ e, camera: threeProp.camera, controls: threeProp.controls })
 }
 
 const changeCameraPosition = (e) => {
   const mousePoint = getClickPosition({ camera: threeProp.camera, scene: threeProp.scene, e })
+  if (!mousePoint) return
 
-  new TWEEN.Tween(threeProp.camera.position)
-    .to({ x: mousePoint.point.x * 2, y: mousePoint.point.y * 2, z: mousePoint.point.z * 2 }, 1000)
+  tweenPositionRef.value = new TWEEN.Tween(threeProp.camera.position)
+    .to({ x: mousePoint.point.x * 3, y: mousePoint.point.y * 3, z: mousePoint.point.z * 3 }, 1000)
     .start()
 }
 </script>
